@@ -177,7 +177,8 @@ trait ResponseTrait
                 } else {
                     $responseArray[$k] = $v;
                 }
-            // Check if the array is not in our filter-list
+
+                // Check if the array is not in our filter-list
             } elseif (!\in_array($k, $filters, true)) {
                 unset($responseArray[$k]);
             }

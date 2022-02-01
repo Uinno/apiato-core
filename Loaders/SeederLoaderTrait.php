@@ -101,7 +101,7 @@ trait SeederLoaderTrait
     {
         foreach ($seedersClasses as $seeder) {
             // Seed it with call.
-            $seeder::WITH_TRANSACTIONS ? DB::transaction(fn() => $this->call($seeder)) : $this->call($seeder);
+            $seeder::WITH_TRANSACTIONS ? DB::transaction(fn () => $this->call($seeder)) : $this->call($seeder);
         }
     }
 }

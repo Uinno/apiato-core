@@ -1,6 +1,6 @@
 {
-    "name": "apiato/core",
-    "description": "Core package for Apiato.",
+    "name": "uinno/apiato-core",
+    "description": "Fork from the Core package for Apiato.",
     "homepage": "http://apiato.io/",
     "support": {
         "issues": "https://github.com/apiato/core/issues",
@@ -36,8 +36,30 @@
     },
     "require-dev": {
         "anatolygerasimov/code": "1.4.6",
-        "roave/security-advisories": "dev-latest",
-        "mockery/mockery": "^1.4.2"
+        "fakerphp/faker": "^1.18",
+        "mockery/mockery": "^1.4.2",
+        "phpunit/phpunit": "^9.5",
+        "psalm/plugin-laravel": "^1.5",
+        "roave/security-advisories": "dev-latest"
+    },
+    "scripts": {
+        "php-cs-fixer": [
+            "./vendor/bin/php-cs-fixer fix --config=./vendor/anatolygerasimov/code/configs/.php_cs.dist.php --allow-risky=yes --using-cache=no"
+        ],
+        "php-cs-fixer-check": [
+            "./vendor/bin/php-cs-fixer fix --dry-run --config=./vendor/anatolygerasimov/code/configs/.php_cs.dist.php --diff -vv --allow-risky=yes --using-cache=no"
+        ],
+        "psalm": [
+            "php ./vendor/anatolygerasimov/code/src/psalm_config.php --target=./psalm.xml",
+            "./vendor/bin/psalm --threads=4 --no-cache --config=./psalm.xml",
+            "rm ./psalm.xml"
+        ],
+        "rector": [
+            "./vendor/bin/rector process --config=./vendor/anatolygerasimov/code/configs/rector.php  --clear-cache"
+        ],
+        "rector-check": [
+            "./vendor/bin/rector process --config=./vendor/anatolygerasimov/code/configs/rector.php  --clear-cache --dry-run"
+        ]
     },
     "autoload": {
         "psr-4": {
@@ -69,21 +91,33 @@
                 "paths": [
                     "/"
                 ],
-                "skip": []
+                "skip": [
+                    "/vendor"
+                ]
             },
             "cs-fixer": {
                 "paths": [
                     "/"
                 ],
-                "skip": []
+                "skip": [
+                    "/vendor"
+                ]
             },
             "psalm": {
                 "paths": [
-                    "/"
+                    "/Abstracts",
+                    "/Commands",
+                    "/Exceptions",
+                    "/Foundation",
+                    "/Helpers",
+                    "/Loaders",
+                    "/Middlewares",
+                    "/Providers",
+                    "/Generator",
+                    "/Traits"
                 ],
                 "skip": [
-                    "/vendor",
-                    "/node_modules"
+                    "/vendor"
                 ],
                 "config": {
                     "plugins": {
@@ -103,4 +137,3 @@
     "minimum-stability": "dev",
     "prefer-stable": true
 }
-
