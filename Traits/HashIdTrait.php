@@ -133,19 +133,19 @@ trait HashIdTrait
      *
      * @throws IncorrectIdException
      */
-    private function processField(null|array|string $data, ?array $keysTodo = null, ?string $currentFieldName = null)
+    private function processField(array|string|int|null $data, ?array $keysTodo = null, ?string $currentFieldName = null)
     {
         // Check if there are no more fields to be processed.
         if (empty($keysTodo)) {
             if (!\is_string($data)) {
-                return $data;
+                throw new IncorrectIdException(sprintf('ID (%s) is incorrect.', $currentFieldName));
             }
 
             // There are no more keys left - so basically we need to decode this entry.
             $decodedField = $this->decode($data);
 
             if ($decodedField === null) {
-                throw new IncorrectIdException(sprintf('ID (%s) is incorrect, consider using the hashed ID.', $currentFieldName));
+                throw new IncorrectIdException(sprintf('ID (%s) is incorrect.', $currentFieldName));
             }
 
             return $decodedField;

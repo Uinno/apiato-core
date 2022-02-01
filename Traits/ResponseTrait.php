@@ -156,7 +156,7 @@ trait ResponseTrait
      */
     protected function parseRequestedIncludes(): array
     {
-        return explode(',', Request::get('include'));
+        return explode(',', Request::get('include', ''));
     }
 
     private function filterResponse(array $responseArray, array $filters): array

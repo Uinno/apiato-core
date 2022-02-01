@@ -108,7 +108,7 @@ abstract class Repository extends PrettusRepository implements PrettusCacheable
     {
         // The priority is for the function parameter, if not available then take it
         // from the request if available and if not keep it null.
-        return (int)($limit ?? Request::get('limit'));
+        return (int)($limit ?? Request::get('limit', 0));
     }
 
     private function wantsToSkipPagination(int $limit): bool
