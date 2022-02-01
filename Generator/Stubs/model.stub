@@ -1,0 +1,44 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{section-name}}\{{container-name}}\Models;
+
+use App\Ship\Parents\Models\Model;
+
+class {{class-name}} extends Model
+{
+    /**
+     * @var array<string>
+     */
+    protected $fillable = [
+
+    ];
+
+    /**
+     * @var array<string, mixed>
+     */
+    protected $attributes = [
+
+    ];
+
+    /**
+     * @var array<string>
+     */
+    protected $hidden = [
+
+    ];
+
+    /**
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
+
+    /**
+     * A resource key to be used in the serialized responses.
+     */
+    protected string $resourceKey = '{{resource-key}}';
+}

@@ -1,0 +1,21 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{section-name}}\{{container-name}}\Exceptions;
+
+use App\Ship\Parents\Exceptions\Exception;
+use Symfony\Component\HttpFoundation\Response;
+
+class {{class-name}} extends Exception
+{
+    /**
+     * @var int
+     */
+    protected $code = Response::HTTP_BAD_REQUEST;
+
+    /**
+     * @var string
+     */
+    protected $message = 'Exception Default Message.';
+}

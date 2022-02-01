@@ -1,0 +1,15 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{section-name}}\{{container-name}}\Data\Transporters;
+
+use App\Ship\Parents\Requests\Request;
+use App\Ship\Parents\Transporters\Transporter;
+
+class {{class-name}} extends Transporter
+{
+    public array $_headers;
+
+    public Request $request;
+}

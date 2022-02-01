@@ -1,0 +1,57 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface}}\Controllers;
+
+use App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface}}\Requests\Create{{model}}Request;
+use App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface}}\Requests\Delete{{model}}Request;
+use App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface}}\Requests\GetAll{{models}}Request;
+use App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface}}\Requests\Find{{model}}ByIdRequest;
+use App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface}}\Requests\Update{{model}}Request;
+use App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface}}\Requests\Store{{model}}Request;
+use App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface}}\Requests\Edit{{model}}Request;
+use App\Containers\{{section-name}}\{{container-name}}\Actions\Create{{model}}Action;
+use App\Containers\{{section-name}}\{{container-name}}\Actions\Find{{model}}ByIdAction;
+use App\Containers\{{section-name}}\{{container-name}}\Actions\GetAll{{models}}Action;
+use App\Containers\{{section-name}}\{{container-name}}\Actions\Update{{model}}Action;
+use App\Containers\{{section-name}}\{{container-name}}\Actions\Delete{{model}}Action;
+use App\Ship\Parents\Controllers\WebController;
+
+class {{class-name}} extends WebController
+{
+    public function index(GetAll{{models}}Request $request): void
+    {
+        ${{entities}} = app(GetAll{{models}}Action::class)->run();
+    }
+
+    public function show(Find{{model}}ByIdRequest $request): void
+    {
+        ${{entity}} = app(Find{{model}}ByIdAction::class)->run($request->toTransporter());
+    }
+
+    public function create(Create{{model}}Request $request): void
+    {
+        // ..
+    }
+
+    public function store(Store{{model}}Request $request): void
+    {
+        ${{entity}} = app(Create{{model}}Action::class)->run($request->toTransporter());
+    }
+
+    public function edit(Edit{{model}}Request $request): void
+    {
+        ${{entity}} = app(Find{{model}}ByIdAction::class)->run($request->toTransporter());
+    }
+
+    public function update(Update{{model}}Request $request): void
+    {
+        ${{entity}} = app(Update{{model}}Action::class)->run($request->toTransporter());
+    }
+
+    public function destroy(Delete{{model}}Request $request): void
+    {
+          $result = app(Delete{{model}}Action::class)->run($request->toTransporter());
+    }
+}

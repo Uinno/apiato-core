@@ -1,0 +1,40 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface}}\Requests;
+
+use {{transporterNamespace}};
+use App\Ship\Parents\Requests\Request;
+use App\Ship\Parents\Traits\RequestWithoutRulesTrait;
+
+class {{class-name}} extends Request
+{
+    use RequestWithoutRulesTrait;
+
+    /**
+     * Define which Roles and/or Permissions has access to this request.
+     */
+    protected array $access = [
+        'permissions' => '',
+        'roles'       => '',
+    ];
+
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return $this->check([
+            'hasAccess',
+        ]);
+    }
+
+    /**
+     * The assigned Transporter for this Request.
+     */
+    public function toTransporter(array $payload = []): {{transporterClass}}
+    {
+        return {{transporterClass}}::fromRequest($this, $payload);
+    }
+}

@@ -1,0 +1,24 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{section-name}}\{{container-name}}\Tests\Unit;
+
+use App\Containers\{{section-name}}\{{container-name}}\Models\{{model}};
+use App\Containers\{{section-name}}\{{container-name}}\Tests\TestCase;
+
+/**
+ * Class {{class-name}}.
+ *
+ * @group {{_container-name}}
+ * @group unit
+ */
+class {{class-name}} extends TestCase
+{
+    public function testCreate{{model}}(): void
+    {
+        ${{_model}} = {{model}}::factory()->make();
+
+        $this->assertInstanceOf({{model}}::class, ${{_model}});
+    }
+}

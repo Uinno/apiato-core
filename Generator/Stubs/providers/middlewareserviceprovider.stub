@@ -1,0 +1,18 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{section-name}}\{{container-name}}\Providers;
+
+use App\Ship\Parents\Providers\MiddlewareServiceProvider as ParentMiddlewareServiceProvider;
+
+class {{class-name}} extends ParentMiddlewareServiceProvider
+{
+    protected array $middlewares = [];
+
+    protected array $middlewareGroups = [];
+
+    protected array $middlewarePriority = [];
+
+    protected array $routeMiddleware = [];
+}

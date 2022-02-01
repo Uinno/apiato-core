@@ -1,0 +1,26 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{section-name}}\{{container-name}}\Actions;
+
+use App\Containers\{{section-name}}\{{container-name}}\Data\Transporters\Create{{model}}Transporter;
+use App\Containers\{{section-name}}\{{container-name}}\Models\{{model}};
+use App\Containers\{{section-name}}\{{container-name}}\Tasks\Create{{model}}Task;
+use App\Ship\Exceptions\CreateResourceFailedException;
+use App\Ship\Parents\Actions\Action;
+
+class {{class-name}} extends Action
+{
+    /**
+     * @throws CreateResourceFailedException
+     */
+    public function run(Create{{model}}Transporter $transporter): {{model}}
+    {
+        $data = $transporter->sanitizeInput([
+            // add your request data here
+        ]);
+
+        return app(Create{{model}}Task::class)->run($data);
+    }
+}

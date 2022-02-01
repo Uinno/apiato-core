@@ -1,0 +1,35 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{section-name}}\{{container-name}}\Tests\Unit;
+
+use App\Containers\{{section-name}}\{{container-name}}\Tests\TestCase;
+
+/**
+ * Class {{class-name}}.
+ *
+ * @group {{_container-name}}
+ * @group unit
+ */
+class {{class-name}} extends TestCase
+{
+    public function test(): void
+    {
+        // Create a data object
+        $data = [
+            // 'key' => 'value',
+        ];
+
+        /**
+         * You may want to do something like this:
+         * 1) create a new Transporter with this data
+         * 2) create a specific Action or Task
+         * 3) pass the Transporter to the Action / Task
+         * 4) assert that everything is correct!
+         */
+
+        // Assert something here
+        self::assertEquals(true, true);
+    }
+}

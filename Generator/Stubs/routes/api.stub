@@ -1,0 +1,56 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @OA\{{doc-http-verb}} (
+ *     path="/{{endpoint-url}}",
+ *     tags={"{{container-name}}"},
+ *     summary="{{container-name}}",
+ *     description="{{container-name}}",
+ *     @OA\RequestBody(
+ *          required=true,
+ *          @OA\JsonContent(
+ *              required={"{{_container-name}}"},
+ *              @OA\Property (property="{{_container-name}}", type="string", example="{{container-name}}"),
+ *          ),
+ *     ),
+ *      @OA\Response(
+ *          response=200,
+ *          description="Returned {{container-name}}",
+ *          @OA\JsonContent(
+ *              @OA\Property (property="{{_container-name}}", type="string", example="{{container-name}}"),
+ *          ),
+ *      ),
+ *      @OA\Response(
+ *          response=401,
+ *          description="Unauthorized",
+ *          @OA\JsonContent(
+ *              @OA\Property (property="message", type="string", example="An Exceptions occurred when trying to authenticate the User."),
+ *          ),
+ *      ),
+ *      @OA\Response(
+ *          response=422,
+ *          description="Unprocessable Entity",
+ *          @OA\JsonContent(
+ *              @OA\Property (property="message", type="string", example="The given data was invalid."),
+ *              @OA\Property (
+ *                  property="errors",
+ *                  type="object",
+ *                  @OA\Property(
+ *                      property="{{_container-name}}",
+ *                      type="array",
+ *                      @OA\Items(type="string", example="The selected {{_container-name}} is invalid.")
+ *                  )
+ *              ),
+ *          ),
+ *      ),
+ *  )
+ */
+
+use App\Containers\{{section-name}}\{{container-name}}\UI\API\Controllers\{{controller-name}};
+use Illuminate\Support\Facades\Route;
+
+Route::{{http-verb}}('{{endpoint-url}}', [{{controller-name}}::class, '{{operation}}'])
+    ->name('{{route-name}}')
+    ->middleware(['auth:{{auth-middleware}}']);

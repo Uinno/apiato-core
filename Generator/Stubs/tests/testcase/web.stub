@@ -1,0 +1,17 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{section-name}}\{{container-name}}\UI\WEB\Tests;
+
+use App\Ship\Parents\Tests\PhpUnit\TestCase as ShipTestCase;
+
+/**
+ * Class {{class-name}}.
+ *
+ * This is the container WEB TestCase class. Use this class to add your container specific WEB related helper functions.
+ */
+class {{class-name}} extends ShipTestCase
+{
+    // ..
+}

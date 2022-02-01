@@ -1,0 +1,38 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{section-name}}\{{container-name}}\UI\API\Transformers;
+
+use App\Containers\AppSection\Authorization\Tasks\IfUserAdminTask;
+use App\Containers\{{section-name}}\{{container-name}}\Models\{{model}};
+use App\Ship\Parents\Transformers\Transformer;
+
+class {{class-name}} extends Transformer
+{
+    /**
+     * @var string[]
+     */
+    protected $defaultIncludes = [
+
+    ];
+
+    /**
+     * @var string[]
+     */
+    protected $availableIncludes = [
+
+    ];
+
+    public function transform({{model}} ${{_model}}): array
+    {
+        $response = [
+{{attributes}}
+        ];
+
+        return app(IfUserAdminTask::class)->run([
+            'real_id'    => ${{_model}}->id,
+            // 'deleted_at' => ${{_model}}->deleted_at,
+        ], $response);
+    }
+}

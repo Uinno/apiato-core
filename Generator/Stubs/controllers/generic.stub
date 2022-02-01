@@ -1,0 +1,12 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface}}\Controllers;
+
+use App\Ship\Parents\Controllers\{{base-controller}};
+
+class {{class-name}} extends {{base-controller}}
+{
+
+}

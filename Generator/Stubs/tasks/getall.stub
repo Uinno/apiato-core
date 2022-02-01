@@ -1,0 +1,27 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{section-name}}\{{container-name}}\Tasks;
+
+use Apiato\Core\Exceptions\CoreInternalErrorException;
+use App\Containers\{{section-name}}\{{container-name}}\Data\Repositories\{{model}}Repository;
+use App\Ship\Parents\Tasks\Task;
+use Prettus\Repository\Exceptions\RepositoryException;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
+
+class {{class-name}} extends Task
+{
+    public function __construct(protected {{model}}Repository $repository)
+    {
+    }
+
+    /**
+     * @throws CoreInternalErrorException|RepositoryException
+     */
+    public function run(bool $skipPagination = false): Collection | LengthAwarePaginator
+    {
+        return $skipPagination ? $this->repository->all() : $this->repository->paginate();
+    }
+}

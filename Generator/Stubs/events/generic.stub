@@ -1,0 +1,23 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{section-name}}\{{container-name}}\Events\Events;
+
+use App\Containers\{{section-name}}\{{container-name}}\Models\{{model}};
+use App\Ship\Parents\Events\Event;
+use Illuminate\Broadcasting\Channel;
+use Illuminate\Broadcasting\PrivateChannel;
+
+class {{class-name}} extends Event
+{
+    public function __construct(
+        public {{model}} ${{_model}}
+    ) {
+    }
+
+    public function broadcastOn(): Channel|array
+    {
+        return new PrivateChannel('channel-name');
+    }
+}

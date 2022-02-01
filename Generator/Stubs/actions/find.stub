@@ -1,0 +1,22 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{section-name}}\{{container-name}}\Actions;
+
+use App\Containers\{{section-name}}\{{container-name}}\Data\Transporters\Find{{model}}ByIdTransporter;
+use App\Containers\{{section-name}}\{{container-name}}\Models\{{model}};
+use App\Containers\{{section-name}}\{{container-name}}\Tasks\Find{{model}}ByIdTask;
+use App\Ship\Exceptions\NotFoundException;
+use App\Ship\Parents\Actions\Action;
+
+class {{class-name}} extends Action
+{
+    /**
+     * @throws NotFoundException
+     */
+    public function run(Find{{model}}ByIdTransporter $transporter): {{model}}
+    {
+        return app(Find{{model}}ByIdTask::class)->run($transporter->id);
+    }
+}

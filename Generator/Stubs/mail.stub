@@ -1,0 +1,29 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{section-name}}\{{container-name}}\Mails;
+
+use App\Containers\AppSection\User\Models\User;
+use App\Ship\Parents\Mails\Mail;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+
+class {{class-name}} extends Mail implements ShouldQueue
+{
+    use Queueable;
+
+    public function __construct(protected User $recipient)
+    {
+    }
+
+    public function build(): static
+    {
+        return $this->view('{{sectionName}}@{{containerName}}::{{view}}')
+            ->to($this->recipient->email, $this->recipient->name)
+            ->with([
+                // place your replacement variables here...
+                //'name' => $this->recipient->name,
+            ]);
+    }
+}

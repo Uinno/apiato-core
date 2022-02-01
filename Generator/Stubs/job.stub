@@ -1,0 +1,21 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Containers\{{section-name}}\{{container-name}}\Jobs;
+
+use App\Ship\Parents\Jobs\Job;
+
+ class {{class-name}} extends Job
+ {
+     public function __construct(private array $recipients)
+     {
+     }
+
+     public function handle(): void
+     {
+         foreach ($this->recipients as $recipient) {
+             // do whatever you like
+         }
+     }
+ }
