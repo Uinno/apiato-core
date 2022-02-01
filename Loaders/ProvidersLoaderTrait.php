@@ -36,7 +36,7 @@ trait ProvidersLoaderTrait
 
             foreach ($files as $file) {
                 // Check if this is the Main Service Provider
-                if (File::isFile($file->getPath()) && Str::startsWith($file->getFilename(), $mainServiceProviderNameStartWith)) {
+                if (File::isFile($file) && Str::startsWith($file->getFilename(), $mainServiceProviderNameStartWith)) {
                     $serviceProviderClass = Apiato::getClassFullNameFromFile($file->getPathname()); //@FIXME: change $file->getPath() to $pathName = $file->getPathname();
                     $this->loadProvider($serviceProviderClass);
                 }

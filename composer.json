@@ -28,7 +28,6 @@
         "prettus/l5-repository": "^2.7.9",
         "spatie/laravel-fractal": "^5.8.1",
         "vinkla/hashids": "^9.1.0",
-        "spatie/laravel-permission": "^4.0.0",
         "laravel/framework": "^8.77.0",
         "laravel/passport": "^10.2.2",
         "guzzlehttp/guzzle": "^7.4.1",

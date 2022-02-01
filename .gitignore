@@ -25,3 +25,4 @@ Vagrantfile
 after.sh
 aliases
 .php-cs-fixer.cache
+/psalm_cache/

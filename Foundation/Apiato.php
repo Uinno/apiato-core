@@ -77,7 +77,7 @@ class Apiato
      */
     public function getClassFullNameFromFile(string $filePathName): string
     {
-        return sprintf('%s\%s', $this->getClassNamespaceFromFile($filePathName), $this->getClassNameFromFile($filePathName));
+        return "{$this->getClassNamespaceFromFile($filePathName)}\\{$this->getClassNameFromFile($filePathName)}";
     }
 
     /**
