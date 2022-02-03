@@ -80,7 +80,7 @@ abstract class Request extends LaravelRequest
         return empty($hasAccess) || \in_array(true, $hasAccess, true);
     }
 
-    private function hasAnyPermissionAccess(User $user): array
+    private function hasAnyPermissionAccess(?User $user): array
     {
         if (!\array_key_exists('permissions', $this->access) || !$this->access['permissions']) {
             return [];
@@ -89,10 +89,10 @@ abstract class Request extends LaravelRequest
         $permissions = \is_array($this->access['permissions']) ? $this->access['permissions'] :
             explode('|', $this->access['permissions']);
 
-        return array_map(static fn ($permission) => $user->hasPermissionTo($permission), $permissions);
+        return array_map(static fn ($permission) => $user?->hasPermissionTo($permission), $permissions);
     }
 
-    private function hasAnyRoleAccess(User $user): array
+    private function hasAnyRoleAccess(?User $user): array
     {
         if (!\array_key_exists('roles', $this->access) || !$this->access['roles']) {
             return [];
@@ -101,7 +101,7 @@ abstract class Request extends LaravelRequest
         $roles = \is_array($this->access['roles']) ? $this->access['roles'] :
             explode('|', $this->access['roles']);
 
-        return array_map(static fn ($role) => $user->hasRole($role), $roles);
+        return array_map(static fn ($role) => $user?->hasRole($role), $roles);
     }
 
     /**
