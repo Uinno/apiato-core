@@ -12,7 +12,7 @@ class AuthenticationException extends Exception
     /**
      * @var int
      */
-    protected $code = RESPONSE::HTTP_UNAUTHORIZED;
+    protected $code = Response::HTTP_UNAUTHORIZED;
 
     /**
      * @var string

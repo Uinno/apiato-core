@@ -234,8 +234,12 @@ trait TestsRequestHelperTrait
     {
         // If endpoint is protected (requires token to access its functionality)
         if ($this->getAuth() && !$this->headersContainAuthorization($headers)) {
-            // Append the token to the header
-            $headers['Authorization'] = 'Bearer ' . $this->getTestingUser()->token();
+            // create token
+            $accessToken = $this->getTestingUser()->createToken('token')->accessToken;
+            // give it to user
+            $this->getTestingUser()->withAccessToken($accessToken);
+            // append the token to the header
+            $headers['Authorization'] = 'Bearer ' . $accessToken;
         }
 
         return $headers;
