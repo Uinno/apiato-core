@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Containers\{{section-name}}\{{container-name}}\UI\WEB\Tests\Functional;
 
 use App\Containers\{{section-name}}\{{container-name}}\UI\WEB\Tests\WebTestCase;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class {{class-name}}.
@@ -29,12 +30,14 @@ class {{class-name}} extends WebTestCase
             // 'key' => 'value',
         ];
 
-        // send the HTTP request
-        $response = $this->makeCall($data);
+        // Send the HTTP request
+        // $response = $this->makeCall($data);
 
-        // assert the response status
-        $response->assertStatus(200);
+        // Assert the response status
+        // $response->assertStatus(Response::HTTP_OK);
 
-        // make other asserts here
+        // Make other asserts here
+
+        self::assertTrue(true);
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Containers\{{section-name}}\{{container-name}}\UI\API\Tests\Functional;
 
 use App\Containers\{{section-name}}\{{container-name}}\UI\API\Tests\ApiTestCase;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class {{class-name}}.
@@ -14,10 +15,10 @@ use App\Containers\{{section-name}}\{{container-name}}\UI\API\Tests\ApiTestCase;
  */
 class {{class-name}} extends ApiTestCase
 {
-    // the endpoint to be called within this test (e.g., get@v1/users)
+    // The endpoint to be called within this test (e.g., get@v1/users)
     protected string $endpoint = 'method@endpoint';
 
-    // fake some access rights
+    // Fake some access rights
     protected array $access = [
         'permissions' => '',
         'roles'       => '',
@@ -29,13 +30,26 @@ class {{class-name}} extends ApiTestCase
             // 'key' => 'value',
         ];
 
-        // send the HTTP request
+        // Send the HTTP request
         // $response = $this->makeCall($data);
 
-        // assert the response status
-        // $response->assertStatus(200);
+        // Assert the response status
+        // $response->assertStatus(Response::HTTP_OK);
 
-        // make other asserts here
+        // Make other asserts here
+        // $this->assertResponseContainKeyValue([
+        //     'key' => $data['key'],
+        // ]);
+
+        // Assert response contain the same structure
+        // $response->assertJsonStructure([
+        //     'data' => [
+        //         'object',
+        //         'id',
+        //         'key',
+        //         'updated_at',
+        //     ],
+        // ]);
 
         self::assertTrue(true);
     }
