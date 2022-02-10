@@ -164,11 +164,15 @@ trait TestsRequestHelperTrait
      * overriding the `$this->endpoint` property
      * Example: you give it ('users/{id}/stores', 100) it returns 'users/100/stores'.
      */
-    public function injectId(string|int $id, bool $skipEncoding = false, string $replace = '{id}'): static
+    public function injectId(string|int|array $id, bool $skipEncoding = false, string|array $replace = '{id}'): static
     {
         // In case Hash ID is enabled it will encode the ID first
-        $id               = $this->hashEndpointId($id, $skipEncoding);
-        $injectedEndpoint = str_replace($replace, $id, $this->getEndpoint());
+        $ids = [];
+        foreach ((array)$id as $value) {
+            $ids[] = $this->hashEndpointId($value, $skipEncoding);
+        }
+
+        $injectedEndpoint = str_replace((array)$replace, $ids, $this->getEndpoint());
 
         return $this->endpoint($injectedEndpoint);
     }
