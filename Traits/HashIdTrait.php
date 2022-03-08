@@ -137,6 +137,10 @@ trait HashIdTrait
     {
         // Check if there are no more fields to be processed.
         if (empty($keysTodo)) {
+            if ($this->skipHashIdDecode($data)) {
+                return $data;
+            }
+
             if (!\is_string($data)) {
                 throw new IncorrectIdException(sprintf('ID (%s) is incorrect.', $currentFieldName));
             }
@@ -178,5 +182,10 @@ trait HashIdTrait
         $data[$field] = $this->processField($value, $keysTodo, $field);
 
         return $data;
+    }
+
+    public function skipHashIdDecode(array|string|int|null $field): bool
+    {
+        return $field === null;
     }
 }
