@@ -66,11 +66,11 @@ trait TestsAuthHelperTrait
      * `$access` property. But the $access parameter can be used to override the
      * defined roles and permissions in the `$access` property of your class.
      *
-     * @param array|null $userDetails       what to be attached on the User object
-     * @param array|null $access            roles and permissions you'd like to provide this user with
-     * @param bool       $createUserAsAdmin should create testing user as admin
+     * @param array|User|null $userDetails       what to be attached on the User object
+     * @param array|null      $access            roles and permissions you'd like to provide this user with
+     * @param bool            $createUserAsAdmin should create testing user as admin
      */
-    public function getTestingUser(?array $userDetails = null, ?array $access = null, bool $createUserAsAdmin = false): User
+    public function getTestingUser(array|User|null $userDetails = null, ?array $access = null, bool $createUserAsAdmin = false): User
     {
         $this->createUserAsAdmin = $createUserAsAdmin;
         $this->userClass         = $this->userclass ?? Config::get('apiato.tests.user-class');
@@ -80,15 +80,15 @@ trait TestsAuthHelperTrait
             : $this->createTestingUser($userDetails, $access);
     }
 
-    private function findOrCreateTestingUser($userDetails, $access): User
+    private function findOrCreateTestingUser(array|User|null $userDetails = null, ?array $access = null): User
     {
         return $this->testingUser ?: $this->createTestingUser($userDetails, $access);
     }
 
-    private function createTestingUser(?array $userDetails = null, ?array $access = null): User
+    private function createTestingUser(array|User|null $userDetails = null, ?array $access = null): User
     {
         // Create new user
-        $user = $this->factoryCreateUser($userDetails);
+        $user = $userDetails instanceof User ? $userDetails : $this->factoryCreateUser($userDetails);
 
         // Assign user roles and permissions based on the access property
         $user = $this->setupTestingUserAccess($user, $access);
