@@ -73,7 +73,7 @@ trait TestsAuthHelperTrait
     public function getTestingUser(array|User|null $userDetails = null, ?array $access = null, bool $createUserAsAdmin = false): User
     {
         $this->createUserAsAdmin = $createUserAsAdmin;
-        $this->userClass         = $this->userclass ?? Config::get('apiato.tests.user-class');
+        $this->userClass         = $this->userClass ?? Config::get('apiato.tests.user-class');
         $this->userAdminState    = Config::get('apiato.tests.user-admin-state');
 
         return \is_null($userDetails) ? $this->findOrCreateTestingUser($userDetails, $access)
