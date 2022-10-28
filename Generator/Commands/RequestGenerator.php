@@ -59,8 +59,8 @@ class RequestGenerator extends GeneratorCommand implements ComponentsGenerator
 
     public function getUserInputs(): array
     {
-        $ui   = Str::lower($this->checkParameterOrChoice('ui', 'Select the UI for the controller', ['API', 'WEB'], 0));
-        $stub = $this->option('stub');
+        $ui          = Str::lower($this->checkParameterOrChoice('ui', 'Select the UI for the controller', ['API', 'WEB'], 0));
+        $stub        = $this->option('stub');
 
         // Load a new stub-file if generating container otherwise use generic
         $this->stubName = $stub ? 'requests/' . Str::lower($stub) . '.stub' : $this->stubName;
@@ -102,6 +102,7 @@ class RequestGenerator extends GeneratorCommand implements ComponentsGenerator
                 'transporterClass'     => $transporterClass,
                 'transporterNamespace' => $transporterNamespace,
                 'table-name'           => $tableName,
+                'container-name-lower' => Str::lower($this->containerName),
             ],
             'file-parameters' => [
                 'file-name' => $this->fileName,
