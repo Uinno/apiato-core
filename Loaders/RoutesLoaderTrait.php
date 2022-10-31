@@ -31,25 +31,6 @@ trait RoutesLoaderTrait
         }
     }
 
-    public function getApiRouteGroup(string | SplFileInfo $endpointFileOrPrefixString, ?string $controllerNamespace = null): array
-    {
-        return [
-            'namespace'  => $controllerNamespace,
-            'middleware' => $this->getMiddlewares(),
-            'domain'     => $this->getApiDomain(),
-            // If $endpointFileOrPrefixString is a file then get the version name from the file name, else if string use that string as prefix
-            'prefix'     => \is_string($endpointFileOrPrefixString) ? $endpointFileOrPrefixString : $this->getApiVersionPrefix($endpointFileOrPrefixString),
-        ];
-    }
-
-    public function getWebRouteGroup(SplFileInfo $file, ?string $controllerNamespace = null): array
-    {
-        return [
-            'namespace'  => $controllerNamespace,
-            'middleware' => ['web'],
-        ];
-    }
-
     /**
      * Register the Containers UI routes files.
      */
@@ -73,6 +54,25 @@ trait RoutesLoaderTrait
                 $this->createRouteGroup($file, $routeGroupArray);
             }
         }
+    }
+
+    public function getApiRouteGroup(string | SplFileInfo $endpointFileOrPrefixString, ?string $controllerNamespace = null): array
+    {
+        return [
+            'namespace'  => $controllerNamespace,
+            'middleware' => $this->getMiddlewares(),
+            'domain'     => $this->getApiDomain(),
+            // If $endpointFileOrPrefixString is a file then get the version name from the file name, else if string use that string as prefix
+            'prefix'     => \is_string($endpointFileOrPrefixString) ? $endpointFileOrPrefixString : $this->getApiVersionPrefix($endpointFileOrPrefixString),
+        ];
+    }
+
+    public function getWebRouteGroup(SplFileInfo $file, ?string $controllerNamespace = null): array
+    {
+        return [
+            'namespace'  => $controllerNamespace,
+            'middleware' => ['web'],
+        ];
     }
 
     /**

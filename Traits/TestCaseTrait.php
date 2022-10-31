@@ -4,17 +4,11 @@ declare(strict_types=1);
 
 namespace Apiato\Core\Traits;
 
-use Illuminate\Support\Facades\Artisan;
 use Laravel\Passport\ClientRepository;
 use Laravel\Passport\PersonalAccessClient;
 
 trait TestCaseTrait
 {
-    public function migrateDatabase(): void
-    {
-        Artisan::call('migrate');
-    }
-
     /**
      * Override default URL subDomain in case you want to change it for some tests.
      *

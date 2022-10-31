@@ -11,7 +11,7 @@ abstract class AuthServiceProvider extends LaravelAuthServiceProvider
     /**
      * The policy mappings for the application.
      *
-     * @var array
+     * @var array<class-string, class-string>
      */
     protected $policies = [
     ];

@@ -13,7 +13,7 @@ class Apiato
      *
      * @var string
      */
-    public const VERSION = '10.0.0';
+    public const VERSION = '11.0.0';
 
     /**
      * @var string
@@ -30,13 +30,13 @@ class Apiato
      */
     public function getShipFoldersNames(): array
     {
-        $portFoldersNames = [];
+        $shipFoldersNames = [];
 
-        foreach ($this->getShipPath() as $portFoldersPath) {
-            $portFoldersNames[] = basename($portFoldersPath);
+        foreach ($this->getShipPath() as $shipFoldersPath) {
+            $shipFoldersNames[] = basename($shipFoldersPath);
         }
 
-        return $portFoldersNames;
+        return $shipFoldersNames;
     }
 
     public function getShipPath(): array
@@ -151,7 +151,7 @@ class Apiato
      */
     public function getClassType(string $className): string
     {
-        $array = preg_split('#(?=[A-Z])#', $className);
+        $array = preg_split('/(?=[A-Z])/', $className);
 
         return end($array);
     }

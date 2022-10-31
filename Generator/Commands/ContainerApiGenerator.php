@@ -7,6 +7,7 @@ namespace Apiato\Core\Generator\Commands;
 use Apiato\Core\Generator\GeneratorCommand;
 use Apiato\Core\Generator\Interfaces\ComponentsGenerator;
 use Apiato\Core\Generator\Traits\UIGeneratorTrait;
+use Illuminate\Support\Pluralizer;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputOption;
 
@@ -26,6 +27,7 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
         ['events', null, InputOption::VALUE_OPTIONAL, 'Generate Events for this Container?'],
         ['listeners', null, InputOption::VALUE_OPTIONAL, 'Generate Event Listeners for Events of this Container?'],
         ['tests', null, InputOption::VALUE_OPTIONAL, 'Generate Tests for this Container?'],
+        ['maincalled', false, InputOption::VALUE_NONE],
         ['transporters', null, InputOption::VALUE_OPTIONAL, 'Use specific Transporters'],
     ];
 
@@ -102,7 +104,7 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
         $doctype = $this->checkParameterOrChoice('doctype', 'Select the type for all API endpoints', ['private', 'public'], 0);
 
         // Get the URI and remove the first trailing slash
-        $url = Str::lower($this->checkParameterOrAsk('url', 'Enter the base URI for all API endpoints (foo/bar)', Str::lower($models)));
+        $url = Str::lower($this->checkParameterOrAsk('url', 'Enter the base URI for all API endpoints (foo/bar/{id})', Str::kebab($models)));
         $url = ltrim($url, '/');
 
         $controllertype = Str::lower($this->checkParameterOrChoice('controllertype', 'Select the controller type (Single or Multi Action Controller)', ['SAC', 'MAC'], 0));
@@ -118,7 +120,7 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
 
         $generateEvents ?: $this->printInfoMessage('Generating CRUD Events');
         $generateListeners ?: $this->printInfoMessage('Generating Event Listeners');
-        $generateListeners ?: $this->printInfoMessage('Generating Tests for Container');
+        $generateTests ?: $this->printInfoMessage('Generating Tests for Container');
 
         $this->printInfoMessage('Generating Requests for Routes');
         $this->printInfoMessage('Generating Default Actions');
@@ -278,6 +280,7 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
                     '--model'     => $model,
                     '--stub'      => 'migration',
                     '--event'     => false,
+                    '--tablename' => Str::snake(Pluralizer::plural($containerName)),
                 ]);
 
                 $this->call('apiato:generate:test:functional', [
@@ -287,6 +290,7 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
                     '--model'     => $model,
                     '--ui'        => $ui,
                     '--stub'      => $route['stub'],
+                    '--url' => $route['url'],
                 ]);
             }
 
@@ -339,9 +343,7 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
             ]);
         }
 
-        $this->printInfoMessage('Generating Composer File');
-
-        return [
+       $generateComposerFile = [
             'path-parameters' => [
                 'section-name'   => $this->sectionName,
                 'container-name' => $this->containerName,
@@ -357,6 +359,13 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
                 'file-name' => $this->fileName,
             ],
         ];
+
+        if (!$this->option('maincalled')){
+            $this->printInfoMessage('Generating Composer File');
+            return $generateComposerFile;
+        }
+
+        return [];
     }
 
     /**

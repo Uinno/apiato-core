@@ -30,7 +30,7 @@ trait SanitizerTrait
         $fieldsWithDefaultValue = [];
 
         // Create a multidimensional array based on $fields
-        // Which was submitted as DOT notation (e.g., data.name)
+        // which was submitted as DOT notation (e.g., data.name).
         foreach ($fields as $key => $value) {
             if (\is_string($key)) {
                 // Save fields with default values
@@ -74,19 +74,18 @@ trait SanitizerTrait
     }
 
     /**
-     * @throws CoreInternalErrorException|IncorrectIdException
+     * @throws CoreInternalErrorException
+     * @throws IncorrectIdException
      */
     private function getData(): array
     {
         // Get all request data.
         if ($this instanceof Transporter) {
-            $data = $this->toArray();
+            return $this->toArray();
         } elseif ($this instanceof Request) {
-            $data = $this->all();
-        } else {
-            throw new CoreInternalErrorException('Unsupported class type for sanitization.');
+            return $this->all();
         }
 
-        return $data;
+        throw new CoreInternalErrorException('Unsupported class type for sanitization.');
     }
 }

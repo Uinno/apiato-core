@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Containers\{{section-name}}\{{container-name}}\Data\Factories;
 
 use App\Containers\{{section-name}}\{{container-name}}\Models\{{model}};
-use App\Ship\Parents\Factories\Factory;
+use App\Ship\Parents\Factories\Factory as ParentFactory;
 
-class {{class-name}} extends Factory
+class {{class-name}} extends ParentFactory
 {
     /**
      * The name of the factory's corresponding model.

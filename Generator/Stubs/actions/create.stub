@@ -4,16 +4,18 @@ declare(strict_types=1);
 
 namespace App\Containers\{{section-name}}\{{container-name}}\Actions;
 
+use Apiato\Core\Exceptions\IncorrectIdException;
 use App\Containers\{{section-name}}\{{container-name}}\Data\Transporters\Create{{model}}Transporter;
 use App\Containers\{{section-name}}\{{container-name}}\Models\{{model}};
 use App\Containers\{{section-name}}\{{container-name}}\Tasks\Create{{model}}Task;
 use App\Ship\Exceptions\CreateResourceFailedException;
-use App\Ship\Parents\Actions\Action;
+use App\Ship\Parents\Actions\Action as ParentAction;
 
-class {{class-name}} extends Action
+class {{class-name}} extends ParentAction
 {
     /**
      * @throws CreateResourceFailedException
+     * @throws IncorrectIdException
      */
     public function run(Create{{model}}Transporter $transporter): {{model}}
     {

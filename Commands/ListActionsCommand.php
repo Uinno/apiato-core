@@ -42,8 +42,8 @@ class ListActionsCommand extends ConsoleCommand
                     $files = File::allFiles($directory);
 
                     foreach ($files as $action) {
-                        $fileName = $action->getFilename();
                         // Get the file name as is
+                        $fileName = $action->getFilename();
                         $originalFileName = $fileName;
 
                         // Remove the Action.php postfix from each file name

@@ -180,7 +180,7 @@ abstract class GeneratorCommand extends Command
     protected function removeSpecialChars(string $str): string
     {
         // remove everything that is NOT a character or digit
-        return preg_replace('#[^A-Za-z0-9]#', '', $str);
+        return preg_replace('/[^A-Za-z0-9]/', '', $str);
     }
 
     /**
@@ -253,7 +253,7 @@ abstract class GeneratorCommand extends Command
         return array_merge($this->defaultInputs, $this->inputs);
     }
 
-    protected function getInput($arg, bool $trim = true): string | array | null
+    protected function getInput($arg, bool $trim = true): string|array|null
     {
         return $trim ? trim($this->argument($arg)) : $this->argument($arg);
     }
@@ -261,7 +261,7 @@ abstract class GeneratorCommand extends Command
     /**
      * Checks if the param is set (via CLI), otherwise proposes choices to the user.
      */
-    protected function checkParameterOrChoice(string $param, string $question, array $choices, string|int|null $default = null): array | string | bool | null
+    protected function checkParameterOrChoice(string $param, string $question, array $choices, string|int|null $default = null): array|string|bool|null
     {
         // Check if we already have a param set
         $value = $this->option($param);
@@ -274,7 +274,7 @@ abstract class GeneratorCommand extends Command
         return $value;
     }
 
-    protected function checkParameterOrConfirm(string $param, string $question, bool $default = false): string | array | bool | null
+    protected function checkParameterOrConfirm(string $param, string $question, bool $default = false): string|array|bool|null
     {
         // Check if we already have a param set
         $value = $this->option($param);

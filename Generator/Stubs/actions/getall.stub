@@ -7,18 +7,19 @@ namespace App\Containers\{{section-name}}\{{container-name}}\Actions;
 use Apiato\Core\Exceptions\CoreInternalErrorException;
 use App\Containers\{{section-name}}\{{container-name}}\Models\{{model}};
 use App\Containers\{{section-name}}\{{container-name}}\Tasks\GetAll{{models}}Task;
-use App\Ship\Parents\Actions\Action;
+use App\Ship\Parents\Actions\Action as ParentAction;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Prettus\Repository\Exceptions\RepositoryException;
 
-class {{class-name}} extends Action
+class {{class-name}} extends ParentAction
 {
     /**
-     * @throws CoreInternalErrorException|RepositoryException
+     * @throws CoreInternalErrorException
+     * @throws RepositoryException
      */
-    public function run(): Collection | LengthAwarePaginator
+    public function run(): Collection|LengthAwarePaginator
     {
-        return app(GetAll{{models}}Task::class)->addRequestCriteria()->run();
+        return app(GetAll{{models}}Task::class)->run();
     }
 }

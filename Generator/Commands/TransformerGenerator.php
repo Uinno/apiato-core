@@ -120,9 +120,16 @@ class TransformerGenerator extends GeneratorCommand implements ComponentsGenerat
         $attributes = '';
         foreach ($fields as $key => $value) {
             $tab         = str_repeat(' ', $maxLength - Str::length($key));
-            $attributes .= $indent . sprintf("'%s'%s => %s,", $key, $tab, $value) . PHP_EOL;
+            $attributes .= $indent . sprintf("'%s'%s => %s,", $key, $tab, $value) . $this->getEndOfLine($key, $fields);
         }
 
         return $attributes;
+    }
+
+    private function getEndOfLine(string $currentKey, array $fields): string
+    {
+        $keys    = array_keys($fields);
+        $lastKey = end($keys);
+        return $currentKey === (string)$lastKey ? '' : PHP_EOL;
     }
 }

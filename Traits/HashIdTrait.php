@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Apiato\Core\Traits;
 
 use Apiato\Core\Exceptions\IncorrectIdException;
-use Illuminate\Support\Facades\Config;
 use Vinkla\Hashids\Facades\Hashids;
 
 trait HashIdTrait
@@ -36,7 +35,7 @@ trait HashIdTrait
         $value = $this->getAttribute($field);
 
         // Hash the ID only if hash-id enabled in the config
-        if (Config::get('apiato.hash-id')) {
+        if (config('apiato.hash-id')) {
             return $this->encoder($value);
         }
 
@@ -68,13 +67,13 @@ trait HashIdTrait
             return null;
         }
 
+        // Do the decoding if the ID looks like a hashed one.
         $value = $this->decoder($id);
 
         if (empty($value)) {
             return null;
         }
 
-        // Do the decoding if the ID looks like a hashed one
         return (int)$value[0];
     }
 
@@ -103,7 +102,7 @@ trait HashIdTrait
     protected function decodeHashedIdsBeforeValidation(array $requestData): array
     {
         // The hash ID feature must be enabled to use this decoder feature.
-        if (property_exists($this, 'decode') && !empty($this->decode) && Config::get('apiato.hash-id')) {
+        if (property_exists($this, 'decode') && !empty($this->decode) && config('apiato.hash-id')) {
             // Iterate over each key (ID that needs to be decoded) and call keys locator to decode them
             foreach ($this->decode as $key) {
                 $requestData = $this->locateAndDecodeIds($requestData, $key);
@@ -149,7 +148,7 @@ trait HashIdTrait
             $decodedField = $this->decode($data);
 
             if ($decodedField === null) {
-                throw new IncorrectIdException(sprintf('ID (%s) is incorrect.', $currentFieldName));
+                throw new IncorrectIdException(sprintf('ID (%s) is incorrect, consider using the hashed ID.', $currentFieldName));
             }
 
             return $decodedField;

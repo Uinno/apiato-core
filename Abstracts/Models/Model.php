@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Apiato\Core\Abstracts\Models;
 
 use Apiato\Core\Traits\FactoryLocatorTrait;
+use Apiato\Core\Traits\HashedRouteBindingTrait;
 use Apiato\Core\Traits\HashIdTrait;
 use Apiato\Core\Traits\HasResourceKeyTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,5 +17,6 @@ abstract class Model extends LaravelEloquentModel
         FactoryLocatorTrait::newFactory insteadof HasFactory;
     }
     use HashIdTrait;
+    use HashedRouteBindingTrait;
     use HasResourceKeyTrait;
 }

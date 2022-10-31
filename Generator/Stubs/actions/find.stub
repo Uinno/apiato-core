@@ -8,9 +8,9 @@ use App\Containers\{{section-name}}\{{container-name}}\Data\Transporters\Find{{m
 use App\Containers\{{section-name}}\{{container-name}}\Models\{{model}};
 use App\Containers\{{section-name}}\{{container-name}}\Tasks\Find{{model}}ByIdTask;
 use App\Ship\Exceptions\NotFoundException;
-use App\Ship\Parents\Actions\Action;
+use App\Ship\Parents\Actions\Action as ParentAction;
 
-class {{class-name}} extends Action
+class {{class-name}} extends ParentAction
 {
     /**
      * @throws NotFoundException

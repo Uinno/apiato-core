@@ -6,21 +6,15 @@ namespace App\Containers\{{section-name}}\{{container-name}}\UI\API\Transformers
 
 use App\Containers\AppSection\Authorization\Tasks\IfUserAdminTask;
 use App\Containers\{{section-name}}\{{container-name}}\Models\{{model}};
-use App\Ship\Parents\Transformers\Transformer;
+use App\Ship\Parents\Transformers\Transformer as ParentTransformer;
 
-class {{class-name}} extends Transformer
+class {{class-name}} extends ParentTransformer
 {
-    /**
-     * @var string[]
-     */
-    protected $defaultIncludes = [
+    protected array $defaultIncludes = [
 
     ];
 
-    /**
-     * @var string[]
-     */
-    protected $availableIncludes = [
+    protected array $availableIncludes = [
 
     ];
 

@@ -5,9 +5,51 @@ declare(strict_types=1);
 namespace App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface}}\Requests;
 
 use {{transporterNamespace}};
-use App\Ship\Parents\Requests\Request;
+use App\Ship\Parents\Requests\Request as ParentRequest;
+use OpenApi\Attributes\Delete;
+use OpenApi\Attributes\Items;
+use OpenApi\Attributes\JsonContent;
+use OpenApi\Attributes\Parameter;
+use OpenApi\Attributes\Property;
+use OpenApi\Attributes\Response;
 
-class {{class-name}} extends Request
+#[Delete(
+    path: '/{{container-name-lower}}/{id}',
+    description: 'Delete {{container-name}} by id',
+    summary: 'Delete {{container-name}} by id',
+    security: [['bearerAuth'=>[]]],
+    tags: ['{{container-name}}'],
+    parameters: [
+        new Parameter(name: 'id', description: '{{container-name}} ID', in: 'path', required: true, ), ],
+    responses: [
+        new Response(
+            response: 204,
+            description: '{{container-name}} deleted'
+        ),
+        new \OpenApi\Attributes\Response(
+            response: 403,
+            description: 'Forbidden'
+        ),
+        new \OpenApi\Attributes\Response(
+            response: 422,
+            description: 'Unprocessable Entity',
+            content: new JsonContent(
+                properties: [
+                    new Property(property: 'message', type: 'string', example: 'The given data was invalid.'),
+                    new Property(property: 'errors', properties: [
+                        new Property(
+                            property: 'id',
+                            type: 'array',
+                            items: new Items(type: 'string', example: 'Selected id is invalid')
+                        ),
+                    ], type: 'object'),
+                ],
+            )
+        ),
+
+    ]
+)]
+class {{class-name}} extends ParentRequest
 {
     /**
      * Define which Roles and/or Permissions has access to this request.

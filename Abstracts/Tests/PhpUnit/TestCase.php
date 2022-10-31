@@ -10,7 +10,6 @@ use Apiato\Core\Traits\TestsTraits\PhpUnit\TestsAuthHelperTrait;
 use Apiato\Core\Traits\TestsTraits\PhpUnit\TestsMockHelperTrait;
 use Apiato\Core\Traits\TestsTraits\PhpUnit\TestsRequestHelperTrait;
 use Apiato\Core\Traits\TestsTraits\PhpUnit\TestsResponseHelperTrait;
-use Faker\Generator;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Foundation\Testing\RefreshDatabaseState;
@@ -26,12 +25,15 @@ abstract class TestCase extends LaravelTestCase
     use TestsRequestHelperTrait;
     use TestsResponseHelperTrait;
 
-    protected Generator $faker;
-
     /**
      * The base URL to use while testing the application.
      */
     protected string $baseUrl;
+
+    /**
+     * Seed the DB on migrations
+     */
+    protected bool $seed = true;
 
     /**
      * Setup the test environment, before each test.
@@ -55,11 +57,8 @@ abstract class TestCase extends LaravelTestCase
      */
     protected function refreshInMemoryDatabase(): void
     {
-        // Migrate the database
-        $this->migrateDatabase();
-
-        // Seed the database
-        $this->seed();
+        // Migrate the database and seed the database
+        $this->artisan('migrate', $this->migrateUsing());
 
         // Install Passport Client for Testing
         $this->setupPassportOAuth2();
@@ -74,8 +73,8 @@ abstract class TestCase extends LaravelTestCase
     protected function refreshTestDatabase(): void
     {
         if (!RefreshDatabaseState::$migrated) {
-            $this->artisan('migrate:fresh');
-            $this->seed();
+            // Migrate the database and seed the database
+            $this->artisan('migrate:fresh', $this->migrateFreshUsing());
             $this->setupPassportOAuth2();
 
             $this->app[Kernel::class]->setArtisan(null);

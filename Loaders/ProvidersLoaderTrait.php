@@ -6,7 +6,6 @@ namespace Apiato\Core\Loaders;
 
 use Apiato\Core\Foundation\Facades\Apiato;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -36,7 +35,7 @@ trait ProvidersLoaderTrait
 
             foreach ($files as $file) {
                 // Check if this is the Main Service Provider
-                if (File::isFile($file) && Str::startsWith($file->getFilename(), $mainServiceProviderNameStartWith)) {
+                if (File::isFile((string)$file) && Str::startsWith($file->getFilename(), $mainServiceProviderNameStartWith)) {
                     $serviceProviderClass = Apiato::getClassFullNameFromFile($file->getPathname());
                     $this->loadProvider($serviceProviderClass);
                 }
@@ -64,6 +63,6 @@ trait ProvidersLoaderTrait
 
     public function loadOnlyShipProviderFromShip(): void
     {
-        $this->loadProvider(Config::get('apiato.ship.namespace-ship-provider'));
+        $this->loadProvider(config('apiato.ship.namespace-ship-provider'));
     }
 }

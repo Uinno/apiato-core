@@ -111,7 +111,6 @@ trait TestsAuthHelperTrait
             return $user::factory()->{$state}()->create($this->prepareUserDetails($userDetails));
         }
 
-        /** @noinspection PhpIncompatibleReturnTypeInspection */
         return $user::factory()->create($this->prepareUserDetails($userDetails));
     }
 
