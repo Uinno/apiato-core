@@ -5,11 +5,6 @@ declare(strict_types=1);
 
 use App\Containers\{{section-name}}\{{container-name}}\UI\API\Controllers\{{controller-name}};
 use Illuminate\Support\Facades\Route;
-use OpenApi\Attributes\Items;
-use OpenApi\Attributes\JsonContent;
-use OpenApi\Attributes\Parameter;
-use OpenApi\Attributes\Property;
-use OpenApi\Attributes\RequestBody;
 
 Route::{{http-verb}}('{{endpoint-url}}', [{{controller-name}}::class, '{{operation}}'])
     ->name('{{route-name}}')

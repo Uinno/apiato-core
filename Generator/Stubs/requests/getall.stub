@@ -7,30 +7,7 @@ namespace App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface
 use {{transporterNamespace}};
 use App\Ship\Parents\Requests\Request as ParentRequest;
 use App\Ship\Parents\Traits\RequestWithoutRulesTrait;
-use OpenApi\Attributes\Get;
-use OpenApi\Attributes\Items;
-use OpenApi\Attributes\JsonContent;
-use OpenApi\Attributes\Property;
-use OpenApi\Attributes\Response;
 
-#[Get(
-    path: '/{{container-name-lower}}s',
-    description: 'Get all {{container-name}}',
-    summary: 'Get all {{container-name}}',
-    security: [['bearerAuth'=>[]]],
-    tags: ['{{container-name}}'],
-    responses: [
-        new Response(
-            response: 200,
-            description: '{{container-name}}s',
-            content: new JsonContent(properties: [new Property(property: 'data', type: 'array', items: new Items(ref: '#/components/schemas/{{container-name}}'))])
-        ),
-        new \OpenApi\Attributes\Response(
-            response: 403,
-            description: 'Forbidden'
-        ),
-    ]
-)]
 class {{class-name}} extends ParentRequest
 {
     use RequestWithoutRulesTrait;
