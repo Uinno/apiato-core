@@ -5,21 +5,7 @@ declare(strict_types=1);
 namespace App\Containers\{{section-name}}\{{container-name}}\Models;
 
 use App\Ship\Parents\Models\Model as ParentModel;
-use OpenApi\Attributes\Property;
-use OpenApi\Attributes\Schema;
-use OpenApi\Attributes\Tag;
 
-#[Tag(name: '{{class-name}}')]
-#[Schema(title: "{{class-name}}", description: "{{class-name}} Model",
-    properties: [
-        new Property(property: "object", type: "string", example: "{{class-name}}"),
-        new Property(property: "id", type: "string", example: "05e6laz40wojymb3"),
-        new Property(property: "name", type: "string", example: "Tompson"),
-        new Property(property: "updated_at", type: "string", example: "2021-04-27T15:20:02.000000Z"),
-        new Property(property: "created_at", type: "string", example: "2021-04-27T15:20:02.000000Z"),
-        new Property(property: "readable_updated_at", type: "string", example: "1 second ago"),
-        new Property(property: "readable_created_at", type: "string", example: "1 second ago"),
-    ])]
 class {{class-name}} extends ParentModel
 {
     /**

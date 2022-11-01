@@ -6,55 +6,7 @@ namespace App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface
 
 use {{transporterNamespace}};
 use App\Ship\Parents\Requests\Request as ParentRequest;
-use OpenApi\Attributes\Items;
-use OpenApi\Attributes\JsonContent;
-use OpenApi\Attributes\Post;
-use OpenApi\Attributes\Property;
-use OpenApi\Attributes\RequestBody;
 
-#[Post(
-    path: '/{{container-name-lower}}s',
-    description: 'Create {{container-name}}',
-    summary: 'Create {{container-name}}',
-    security: [['bearerAuth'=>[]]],
-    requestBody: new RequestBody(
-        description: '{{container-name}} data',
-        content: new JsonContent(
-            required: ['name'],
-            properties: [
-                new Property(property: 'name', type: 'string', example: '{{container-name}}'),
-            ]
-        )
-    ),
-    tags: ['{{container-name}}'],
-    responses: [
-        new \OpenApi\Attributes\Response(
-            response: 201,
-            description: '{{container-name}} created',
-            content: new JsonContent(ref: '#/components/schemas/{{container-name}}')
-        ),
-        new \OpenApi\Attributes\Response(
-            response: 403,
-            description: 'Forbidden'
-        ),
-        new \OpenApi\Attributes\Response(
-            response: 422,
-            description: 'Unprocessable Entity',
-            content: new JsonContent(
-                properties: [
-                    new Property(property: 'message', type: 'string', example: 'The given data was invalid.'),
-                    new Property(property: 'errors', properties: [
-                        new Property(
-                            property: 'id',
-                            type: 'array',
-                            items: new Items(type: 'string', example: 'Selected id is invalid')
-                        ),
-                    ], type: 'object'),
-                ],
-            )
-        ),
-    ]
-)]
 class {{class-name}} extends ParentRequest
 {
     /**
