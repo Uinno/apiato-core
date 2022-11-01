@@ -31,7 +31,7 @@ class ServiceProviderGenerator extends GeneratorCommand implements ComponentsGen
      *
      * @var string
      */
-    protected $description = 'Create a ServiceProvider for a Container';
+    protected $description = 'Create a Service Provider for a Container';
 
     /**
      * The type of class being generated.

@@ -42,8 +42,8 @@ class ListTasksCommand extends ConsoleCommand
                     $files = File::allFiles($directory);
 
                     foreach ($files as $action) {
-                        $fileName = $action->getFilename();
                         // Get the file name as is
+                        $fileName = $action->getFilename();
                         $originalFileName = $fileName;
 
                         // Remove the Task.php postfix from each file name

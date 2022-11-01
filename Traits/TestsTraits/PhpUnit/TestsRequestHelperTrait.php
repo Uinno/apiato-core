@@ -47,7 +47,9 @@ trait TestsRequestHelperTrait
     protected ?bool $overrideAuth = null;
 
     /**
-     * @throws MissingTestEndpointException|UndefinedMethodException|WrongEndpointFormatException
+     * @throws WrongEndpointFormatException
+     * @throws MissingTestEndpointException
+     * @throws UndefinedMethodException
      */
     public function makeCall(array $data = [], array $headers = []): TestResponse
     {
@@ -80,7 +82,9 @@ trait TestsRequestHelperTrait
     }
 
     /**
-     * @throws MissingTestEndpointException|UndefinedMethodException|WrongEndpointFormatException
+     * @throws WrongEndpointFormatException
+     * @throws MissingTestEndpointException
+     * @throws UndefinedMethodException
      */
     public function makeUploadCall(array $files = [], array $params = [], array $headers = []): TestResponse
     {
@@ -194,8 +198,8 @@ trait TestsRequestHelperTrait
     }
 
     /**
-     * Override the default class auth property before making the call.
-     * to be used as follows: $this->auth('false')->makeCall($data);.
+     * Override the default class auth property before making the call
+     * to be used as follows: $this->auth('false')->makeCall($data);
      */
     public function auth(bool $auth): static
     {
@@ -275,7 +279,8 @@ trait TestsRequestHelperTrait
     /**
      * Read `$this->endpoint` property from the test class (`verb@uri`) and convert it to usable data.
      *
-     * @throws WrongEndpointFormatException|MissingTestEndpointException
+     * @throws WrongEndpointFormatException
+     * @throws MissingTestEndpointException
      */
     private function parseEndpoint(): array
     {
@@ -291,6 +296,8 @@ trait TestsRequestHelperTrait
         // Get the verb and uri values from the array
         [$verb, $uri] = $asArray;
 
+        /** @var string $verb */
+        /** @var string $uri */
         return [
             'verb' => $verb,
             'uri'  => $uri,

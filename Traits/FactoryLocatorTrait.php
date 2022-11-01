@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 trait FactoryLocatorTrait
 {
-    protected static function newFactory(): Factory
+    protected static function newFactory(): ?Factory
     {
         $separator               = '\\';
         $containersFactoriesPath = $separator . 'Data' . $separator . 'Factories' . $separator;
@@ -19,6 +19,10 @@ trait FactoryLocatorTrait
 
         Factory::useNamespace($nameSpace);
         $className = class_basename(static::class);
+
+        if (!class_exists($nameSpace . $className . 'Factory')) {
+            return null;
+        }
 
         return Factory::factoryForModel($className);
     }

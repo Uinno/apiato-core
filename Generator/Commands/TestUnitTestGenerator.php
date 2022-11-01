@@ -19,6 +19,7 @@ class TestUnitTestGenerator extends GeneratorCommand implements ComponentsGenera
         ['model', null, InputOption::VALUE_OPTIONAL, 'The model this tests is for.'],
         ['stub', null, InputOption::VALUE_OPTIONAL, 'The stub file to load for this generator.'],
         ['event', null, InputOption::VALUE_OPTIONAL, 'The Event to generate tests for'],
+        ['tablename', null, InputOption::VALUE_OPTIONAL, 'The DB Table to generate tests for'],
     ];
 
     /**
@@ -57,9 +58,10 @@ class TestUnitTestGenerator extends GeneratorCommand implements ComponentsGenera
 
     public function getUserInputs(): array
     {
-        $model = $this->option('model');
-        $stub  = $this->option('stub');
-        $event = $this->option('event');
+        $model     = $this->option('model');
+        $stub      = $this->option('stub');
+        $event     = $this->option('event');
+        $tablename = $this->option('tablename');
 
         if ($stub) {
             if ($event) {
@@ -92,10 +94,11 @@ class TestUnitTestGenerator extends GeneratorCommand implements ComponentsGenera
                 'container-name'  => $this->containerName,
                 'class-name'      => $this->fileName,
                 'model'           => $model,
-                '_model'          => Str::lower($model),
+                '_model'          => Str::camel($model),
                 'models'          => $models,
                 '_models'         => Str::lower($models),
                 'event'           => $event,
+                'table-name'      => $tablename,
             ],
             'file-parameters' => [
                 'file-name' => $this->fileName,

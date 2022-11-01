@@ -51,7 +51,7 @@ trait SeederLoaderTrait
                 $files = File::allFiles($directory);
 
                 foreach ($files as $seederClass) {
-                    if (File::isFile($seederClass)) {
+                    if (File::isFile((string)$seederClass)) {
 
                         // Do not seed the classes now, just store them in a collection.
                         $seedersClasses->push(

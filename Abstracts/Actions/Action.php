@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Apiato\Core\Abstracts\Actions;
 
 use Apiato\Core\Traits\HasRequestCriteriaTrait;
+use Illuminate\Support\Facades\DB;
 
 abstract class Action
 {
@@ -16,12 +17,9 @@ abstract class Action
      */
     protected string $ui;
 
-    /**
-     * Made actions invocable.
-     */
-    public function __invoke(...$arguments)
+    public function transactionalRun(...$arguments)
     {
-        return static::run(...$arguments);
+        return DB::transaction(fn (): mixed => static::run(...$arguments));
     }
 
     public function getUI(): string

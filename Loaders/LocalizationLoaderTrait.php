@@ -11,7 +11,7 @@ trait LocalizationLoaderTrait
 {
     public function loadLocalsFromContainers($containerPath): void
     {
-        $containerLocaleDirectory = $containerPath . '/Resources/Languages';
+        $containerLocaleDirectory = $containerPath . '/Languages';
         $containerName            = basename($containerPath);
         $pathParts                = explode(DIRECTORY_SEPARATOR, $containerPath);
         $sectionName              = $pathParts[\count($pathParts) - 2];
@@ -21,7 +21,7 @@ trait LocalizationLoaderTrait
 
     public function loadLocalsFromShip(): void
     {
-        $shipLocaleDirectory = base_path('app/Ship/Resources/Languages');
+        $shipLocaleDirectory = base_path('app/Ship/Languages');
         $this->loadLocals($shipLocaleDirectory, 'ship');
     }
 

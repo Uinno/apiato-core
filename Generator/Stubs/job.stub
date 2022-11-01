@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Containers\{{section-name}}\{{container-name}}\Jobs;
 
-use App\Ship\Parents\Jobs\Job;
+use App\Ship\Parents\Jobs\Job as ParentJob;
 
- class {{class-name}} extends Job
+ class {{class-name}} extends ParentJob
  {
      public function __construct(private array $recipients)
      {

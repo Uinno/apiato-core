@@ -7,6 +7,7 @@ namespace App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface
 use App\Containers\{{section-name}}\{{container-name}}\Actions\Delete{{model}}Action;
 use App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface}}\Requests\Delete{{model}}Request;
 use App\Ship\Exceptions\DeleteResourceFailedException;
+use App\Ship\Exceptions\NotFoundException;
 use App\Ship\Parents\Controllers\{{base-controller}};
 use Illuminate\Http\JsonResponse;
 
@@ -14,6 +15,7 @@ class {{class-name}} extends {{base-controller}}
 {
     /**
      * @throws DeleteResourceFailedException
+     * @throws NotFoundException
      */
     public function delete{{model}}(Delete{{model}}Request $request): JsonResponse
     {

@@ -9,9 +9,9 @@ if (!function_exists('uncamelize')) {
     function uncamelize(string $word, string $splitter = ' ', bool $uppercase = true): array|string|null
     {
         $word = preg_replace(
-            '#(?!^)[[:upper:]][[:lower:]]#',
+            '/(?!^)[[:upper:]][[:lower:]]/',
             '$0',
-            preg_replace('#(?!^)[[:upper:]]+#', $splitter . '$0', $word)
+            preg_replace('/(?!^)[[:upper:]]+/', $splitter . '$0', $word)
         );
 
         return $uppercase ? ucwords($word) : $word;

@@ -15,7 +15,7 @@ trait HasResourceKeyTrait
      */
     public function getResourceKey(): string
     {
-        if (property_exists($this, 'resourceKey') && $this->resourceKey !== null) {
+        if (property_exists($this, 'resourceKey') && isset($this->resourceKey)) {
             $resourceKey = $this->resourceKey;
         } else {
             $reflect     = new ReflectionClass($this);

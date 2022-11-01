@@ -55,9 +55,6 @@ class TestTestCaseGenerator extends GeneratorCommand implements ComponentsGenera
 
     public function getUserInputs(): array
     {
-        // We manually set the filename to TestCase as this is the preferred name within apiato
-        $this->fileName = 'TestCase';
-
         $ui = Str::lower($this->checkParameterOrChoice('ui', 'Select the UI for the controller', ['Generic', 'API', 'WEB', 'CLI'], 0));
 
         $type = match ($ui) {

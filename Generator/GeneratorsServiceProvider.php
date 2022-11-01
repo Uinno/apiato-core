@@ -21,6 +21,7 @@ use Apiato\Core\Generator\Commands\MigrationGenerator;
 use Apiato\Core\Generator\Commands\ModelFactoryGenerator;
 use Apiato\Core\Generator\Commands\ModelGenerator;
 use Apiato\Core\Generator\Commands\NotificationGenerator;
+use Apiato\Core\Generator\Commands\PolicyGenerator;
 use Apiato\Core\Generator\Commands\ReadmeGenerator;
 use Apiato\Core\Generator\Commands\RepositoryGenerator;
 use Apiato\Core\Generator\Commands\RequestGenerator;
@@ -44,23 +45,15 @@ class GeneratorsServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        if ($this->app->runningInConsole()) {
+            $this->commands($this->getGeneratorCommands());
+        }
     }
 
-    /**
-     * Register the application services.
-     */
-    public function register(): void
+    private function getGeneratorCommands(): array
     {
-        $this->registerGenerators();
-    }
-
-    /**
-     * Register the generators.
-     */
-    private function registerGenerators(): void
-    {
-        $classes = [
+        // Add your generators here.
+        return [
             ActionGenerator::class,
             ConfigurationGenerator::class,
             ContainerGenerator::class,
@@ -78,6 +71,7 @@ class GeneratorsServiceProvider extends ServiceProvider
             MigrationGenerator::class,
             ModelGenerator::class,
             NotificationGenerator::class,
+            PolicyGenerator::class,
             ReadmeGenerator::class,
             RepositoryGenerator::class,
             RequestGenerator::class,
@@ -93,13 +87,5 @@ class GeneratorsServiceProvider extends ServiceProvider
             ValueGenerator::class,
             TransporterGenerator::class,
         ];
-
-        foreach ($classes as $class) {
-            $lowerClass = strtolower($class);
-
-            $this->app->singleton(sprintf('command.porto.%s', $lowerClass), fn ($app) => $app[$class]);
-
-            $this->commands(sprintf('command.porto.%s', $lowerClass));
-        }
     }
 }

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Containers\{{section-name}}\{{container-name}}\SubActions;
 
-use App\Ship\Parents\Actions\SubAction;
+use App\Ship\Parents\Actions\SubAction as ParentSubAction;
 
-class {{class-name}} extends SubAction
+class {{class-name}} extends ParentSubAction
 {
     public function run(): void
     {

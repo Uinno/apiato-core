@@ -15,7 +15,8 @@ use Vinkla\Hashids\Facades\Hashids;
 trait HasRequestCriteriaTrait
 {
     /**
-     * @throws CoreInternalErrorException|RepositoryException
+     * @throws CoreInternalErrorException
+     * @throws RepositoryException
      */
     public function addRequestCriteria(?Repository $repository = null, array $fieldsToDecode = ['id']): static
     {
@@ -23,7 +24,7 @@ trait HasRequestCriteriaTrait
         $validatedRepository->pushCriteria(app(RequestCriteria::class));
 
         /**
-         * @FIXME : thinking about PrettusRequestCriteria and decodeRepositorySearch method.
+         * @FIXME: thinking about PrettusRequestCriteria and decodeRepositorySearch method.
          */
         if ($this->shouldDecodeSearch()) {
             $this->decodeSearchQueryString($fieldsToDecode);
@@ -188,8 +189,8 @@ trait HasRequestCriteriaTrait
 
         $fields = array_keys($decodedSearchArray);
         $length = \count($fields);
-        foreach ($fields as $i => $iValue) {
-            $field = $iValue;
+        for ($i = 0; $i < $length; $i++) {
+            $field = $fields[$i];
             $decodedSearchQuery .= sprintf('%s:%s', $field, $decodedSearchArray[$field]);
 
             if ($length !== 1 && $i < $length - 1) {

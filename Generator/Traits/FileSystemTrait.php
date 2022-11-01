@@ -8,7 +8,7 @@ use Exception;
 
 trait FileSystemTrait
 {
-    public function generateFile(string $filePath, string $stubContent): int | bool
+    public function generateFile(string $filePath, string $stubContent): int|bool
     {
         return $this->fileSystem->put($filePath, $stubContent);
     }

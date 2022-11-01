@@ -17,5 +17,5 @@ class AuthenticationException extends Exception
     /**
      * @var string
      */
-    protected $message = 'An Exception occurred when trying to authenticate the User.';
+    protected $message = 'An Exception occurred while trying to authenticate the User.';
 }
