@@ -22,43 +22,23 @@
     "license": "MIT",
     "require": {
         "php": ">=8.1",
-        "apiato/container-installer": "^2.0.8",
-        "prettus/l5-repository": "^2.8.0",
-        "spatie/laravel-fractal": "^6.0",
-        "vinkla/hashids": "^10.0",
-        "ext-json": "*",
-        "guzzlehttp/guzzle": "^7.4.1",
-        "laravel/framework": "^9.0",
-        "laravel/passport": "^10.3.0",
         "ext-gettext": "*",
-        "spatie/data-transfer-object": "^3.7.2"
+        "ext-json": "*",
+        "apiato/container-installer": "^2.0.8",
+        "guzzlehttp/guzzle": "^7.5",
+        "laravel/framework": "^9.0",
+        "laravel/passport": "^11.3",
+        "prettus/l5-repository": "^2.8",
+        "spatie/data-transfer-object": "^3.9",
+        "spatie/laravel-fractal": "^6.0",
+        "vinkla/hashids": "^10.0"
     },
     "require-dev": {
-        "anatolygerasimov/code": "1.4.6",
         "psalm/plugin-laravel": "^2.0",
         "fakerphp/faker": "^1.18",
         "mockery/mockery": "^1.4.4",
         "phpunit/phpunit": "^9.5",
         "roave/security-advisories": "dev-latest"
-    },
-    "scripts": {
-        "php-cs-fixer": [
-            "./vendor/bin/php-cs-fixer fix --config=./vendor/anatolygerasimov/code/configs/.php_cs.dist.php --allow-risky=yes --using-cache=no"
-        ],
-        "php-cs-fixer-check": [
-            "./vendor/bin/php-cs-fixer fix --dry-run --config=./vendor/anatolygerasimov/code/configs/.php_cs.dist.php --diff -vv --allow-risky=yes --using-cache=no"
-        ],
-        "psalm": [
-            "php ./vendor/anatolygerasimov/code/src/psalm_config.php --target=./psalm.xml",
-            "./vendor/bin/psalm --threads=4 --no-cache --config=./psalm.xml",
-            "rm ./psalm.xml"
-        ],
-        "rector": [
-            "./vendor/bin/rector process --config=./vendor/anatolygerasimov/code/configs/rector.php  --clear-cache"
-        ],
-        "rector-check": [
-            "./vendor/bin/rector process --config=./vendor/anatolygerasimov/code/configs/rector.php  --clear-cache --dry-run"
-        ]
     },
     "autoload": {
         "psr-4": {
@@ -82,49 +62,7 @@
             ],
             "aliases": {
                 "Hashids": "Vinkla\\Hashids\\Facades\\Hashids",
-                "Fractal": "Spatie\\Fractal\\FractalFacade"
-            }
-        },
-        "code": {
-            "rector": {
-                "paths": [
-                    "/"
-                ],
-                "skip": [
-                    "/vendor"
-                ]
-            },
-            "cs-fixer": {
-                "paths": [
-                    "/"
-                ],
-                "skip": [
-                    "/vendor"
-                ]
-            },
-            "psalm": {
-                "paths": [
-                    "/Abstracts",
-                    "/Commands",
-                    "/Exceptions",
-                    "/Foundation",
-                    "/Helpers",
-                    "/Loaders",
-                    "/Middlewares",
-                    "/Providers",
-                    "/Generator",
-                    "/Traits"
-                ],
-                "skip": [
-                    "/vendor"
-                ],
-                "config": {
-                    "plugins": {
-                        "pluginClass": [
-                            {"class": "Psalm\\LaravelPlugin\\Plugin"}
-                        ]
-                    }
-                }
+                "Fractal": "Spatie\\Fractal\\Facades\\Fractal"
             }
         }
     },
