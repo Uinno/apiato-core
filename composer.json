@@ -27,7 +27,7 @@
         "apiato/container-installer": "^2.0.8",
         "guzzlehttp/guzzle": "^7.5",
         "laravel/framework": "^9.0",
-        "laravel/passport": "^11.3",
+        "laravel/passport": "^10.3.0",
         "prettus/l5-repository": "^2.8",
         "spatie/data-transfer-object": "^3.9",
         "spatie/laravel-fractal": "^6.0",
