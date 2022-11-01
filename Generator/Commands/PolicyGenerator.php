@@ -13,27 +13,29 @@ class PolicyGenerator extends GeneratorCommand implements ComponentsGenerator
     /**
      * User required/optional inputs expected to be passed while calling the command.
      * This is a replacement of the `getArguments` function "which reads whenever it's called".
-     *
-     * @var  array
      */
     public array $inputs = [
     ];
+
     /**
      * The console command name.
      *
      * @var string
      */
     protected $name = 'apiato:generate:policy';
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'Create a new Policy class';
+
     /**
      * The type of class being generated.
      */
     protected string $fileType = 'Policy';
+
     /**
      * The structure of the file path.
      */
@@ -42,6 +44,7 @@ class PolicyGenerator extends GeneratorCommand implements ComponentsGenerator
      * The structure of the file name.
      */
     protected string $nameStructure = '{file-name}';
+
     /**
      * The name of the stub file.
      */
