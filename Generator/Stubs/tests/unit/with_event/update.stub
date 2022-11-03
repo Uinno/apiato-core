@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Containers\{{section-name}}\{{container-name}}\Tests\Unit;
 
-use App\Containers\{{section-name}}\{{container-name}}\Events\{{event}};
+use App\Containers\{{section-name}}\{{container-name}}\Events\Events\{{event}};
 use App\Containers\{{section-name}}\{{container-name}}\Models\{{model}};
 use App\Containers\{{section-name}}\{{container-name}}\Tasks\Update{{model}}Task;
 use App\Containers\{{section-name}}\{{container-name}}\Tests\TestCase;

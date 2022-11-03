@@ -6,9 +6,11 @@ namespace App\Containers\{{section-name}}\{{container-name}}\Tasks;
 
 use Apiato\Core\Exceptions\CoreInternalErrorException;
 use App\Containers\{{section-name}}\{{container-name}}\Data\Repositories\{{model}}Repository;
-use App\Containers\{{section-name}}\{{container-name}}\Events\{{event}};
+use App\Containers\{{section-name}}\{{container-name}}\Events\Events\{{event}};
 use App\Ship\Parents\Tasks\Task as ParentTask;
 use Prettus\Repository\Exceptions\RepositoryException;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 
 class {{class-name}} extends ParentTask
 {
