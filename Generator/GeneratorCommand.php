@@ -66,7 +66,7 @@ abstract class GeneratorCommand extends Command
      */
     protected string $fileName;
 
-    protected array $userData;
+    protected ?array $userData;
 
     protected string $parsedFileName = '';
 
@@ -88,7 +88,7 @@ abstract class GeneratorCommand extends Command
     /**
      * @throws GeneratorErrorException|FileNotFoundException
      */
-    public function handle(): ?int
+    public function handle(): int
     {
         $this->validateGenerator($this);
 
@@ -110,9 +110,14 @@ abstract class GeneratorCommand extends Command
         // Get user inputs
         $this->userData = $this->getUserInputs();
 
+        // Skip next steps if userData doesn't exist.
         if ($this->userData === null) {
-            // The user skipped this step
-            return null;
+            if (\in_array($this->fileType, ['Seeder', 'Migration'], true)) {
+                $this->components->error(sprintf('There exists a basic file %s for this container.', $this->fileName));
+                $this->newLine();
+            }
+
+            return Command::FAILURE;
         }
 
         $this->userData = $this->sanitizeUserData($this->userData);
@@ -133,7 +138,7 @@ abstract class GeneratorCommand extends Command
         }
 
         // Exit the command successfully
-        return 0;
+        return Command::SUCCESS;
     }
 
     /**
@@ -180,7 +185,7 @@ abstract class GeneratorCommand extends Command
     protected function removeSpecialChars(string $str): string
     {
         // remove everything that is NOT a character or digit
-        return preg_replace('/[^A-Za-z0-9]/', '', $str);
+        return trim(preg_replace('/[^A-Za-z0-9_]/', '', $str), '_');
     }
 
     /**

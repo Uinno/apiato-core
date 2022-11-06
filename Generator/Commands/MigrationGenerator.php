@@ -61,7 +61,7 @@ class MigrationGenerator extends GeneratorCommand implements ComponentsGenerator
      */
     protected ?string $stubName = null;
 
-    public function getUserInputs(): array
+    public function getUserInputs(): ?array
     {
         if (\is_null($this->option('tablename'))) {
             $this->stubName = 'migration.stub';
@@ -96,7 +96,7 @@ class MigrationGenerator extends GeneratorCommand implements ComponentsGenerator
 
         if ($exists) {
             // There exists a basic migration file for this container
-            return [];
+            return null;
         }
 
         return [

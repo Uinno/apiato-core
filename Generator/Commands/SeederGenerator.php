@@ -6,6 +6,7 @@ namespace Apiato\Core\Generator\Commands;
 
 use Apiato\Core\Generator\GeneratorCommand;
 use Apiato\Core\Generator\Interfaces\ComponentsGenerator;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class SeederGenerator extends GeneratorCommand implements ComponentsGenerator
@@ -49,15 +50,43 @@ class SeederGenerator extends GeneratorCommand implements ComponentsGenerator
     /**
      * The structure of the file name.
      */
-    protected string $nameStructure = 'Order_{date}_{file-name}';
+    protected string $nameStructure = '{file-name}';
 
     /**
      * The name of the stub file.
      */
     protected string $stubName = 'seeder.stub';
 
-    public function getUserInputs(): array
+    private ?string $fileParametersDate = null;
+
+    public function getUserInputs(): ?array
     {
+        // Now we need to check if there already exists a "seeder file" for this container!
+        // We therefore search for a file that is named "Order_xxxx_xx_xx_xxxxxx_ClassName"
+        $exists = false;
+
+        $folder = $this->parsePathStructure($this->pathStructure, [
+            'section-name'   => $this->sectionName,
+            'container-name' => $this->containerName,
+        ]);
+        $folder = $this->getFilePath($folder);
+        $folder = rtrim($folder, $this->parsedFileName . '.' . $this->getDefaultFileExtension());
+
+        $seederName = sprintf('%sSeeder.%s', $this->containerName, $this->getDefaultFileExtension());
+
+        // Get the content of this folder
+        $files = File::allFiles($folder);
+        foreach ($files as $file) {
+            if (Str::endsWith($file->getFilename(), $seederName)) {
+                $exists = true;
+            }
+        }
+
+        if ($exists) {
+            // There exists a basic seeder file for this container
+            return null;
+        }
+
         return [
             'path-parameters' => [
                 'section-name'   => $this->sectionName,
@@ -71,7 +100,6 @@ class SeederGenerator extends GeneratorCommand implements ComponentsGenerator
                 'class-name'      => $this->fileName,
             ],
             'file-parameters' => [
-                'date'      => now()->format(self::FORMAT_TIME),
                 'file-name' => $this->fileName,
             ],
         ];
@@ -82,6 +110,15 @@ class SeederGenerator extends GeneratorCommand implements ComponentsGenerator
      */
     public function getDefaultFileName(): string
     {
-        return $this->containerName . 'Seeder';
+        return sprintf('Order_%s_%sSeeder', $this->getDate(), $this->containerName);
+    }
+
+    private function getDate(): string
+    {
+        if ($this->fileParametersDate === null) {
+            $this->fileParametersDate = now()->format(self::FORMAT_TIME);
+        }
+
+        return $this->fileParametersDate;
     }
 }
