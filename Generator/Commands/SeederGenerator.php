@@ -59,34 +59,8 @@ class SeederGenerator extends GeneratorCommand implements ComponentsGenerator
 
     private ?string $fileParametersDate = null;
 
-    public function getUserInputs(): ?array
+    public function getUserInputs(): array
     {
-        // Now we need to check if there already exists a "seeder file" for this container!
-        // We therefore search for a file that is named "Order_xxxx_xx_xx_xxxxxx_ClassName"
-        $exists = false;
-
-        $folder = $this->parsePathStructure($this->pathStructure, [
-            'section-name'   => $this->sectionName,
-            'container-name' => $this->containerName,
-        ]);
-        $folder = $this->getFilePath($folder);
-        $folder = rtrim($folder, $this->parsedFileName . '.' . $this->getDefaultFileExtension());
-
-        $seederName = sprintf('%sSeeder.%s', $this->containerName, $this->getDefaultFileExtension());
-
-        // Get the content of this folder
-        $files = File::allFiles($folder);
-        foreach ($files as $file) {
-            if (Str::endsWith($file->getFilename(), $seederName)) {
-                $exists = true;
-            }
-        }
-
-        if ($exists) {
-            // There exists a basic seeder file for this container
-            return null;
-        }
-
         return [
             'path-parameters' => [
                 'section-name'   => $this->sectionName,
