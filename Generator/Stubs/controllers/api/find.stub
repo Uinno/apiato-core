@@ -18,7 +18,7 @@ class {{class-name}} extends {{base-controller}}
      */
     public function find{{model}}ById(Find{{model}}ByIdRequest $request): array
     {
-        ${{entity}} = app(Find{{model}}ByIdAction::class)->run($request);
+        ${{entity}} = app(Find{{model}}ByIdAction::class)->run($request->toTransporter());
 
         return $this->transform(${{entity}}, {{model}}Transformer::class);
     }

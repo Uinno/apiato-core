@@ -23,7 +23,7 @@ class {{class-name}} extends {{base-controller}}
      */
     public function update{{model}}(Update{{model}}Request $request): array
     {
-        ${{entity}} = app(Update{{model}}Action::class)->run($request);
+        ${{entity}} = app(Update{{model}}Action::class)->run($request->toTransporter());
 
         return $this->transform(${{entity}}, {{model}}Transformer::class);
     }

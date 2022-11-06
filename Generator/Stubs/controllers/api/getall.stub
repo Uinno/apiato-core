@@ -21,7 +21,7 @@ class {{class-name}} extends {{base-controller}}
      */
     public function getAll{{models}}(GetAll{{models}}Request $request): array
     {
-        ${{entities}} = app(GetAll{{models}}Action::class)->run($request);
+        ${{entities}} = app(GetAll{{models}}Action::class)->run($request->toTransporter());
 
         return $this->transform(${{entities}}, {{model}}Transformer::class);
     }

@@ -33,7 +33,7 @@ class {{class-name}} extends {{base-controller}}
      */
     public function create{{model}}(Create{{model}}Request $request): JsonResponse
     {
-        ${{entity}} = app(Create{{model}}Action::class)->run($request);
+        ${{entity}} = app(Create{{model}}Action::class)->run($request->toTransporter());
 
         return $this->created($this->transform(${{entity}}, {{model}}Transformer::class));
     }
@@ -44,7 +44,7 @@ class {{class-name}} extends {{base-controller}}
      */
     public function find{{model}}ById(Find{{model}}ByIdRequest $request): array
     {
-        ${{entity}} = app(Find{{model}}ByIdAction::class)->run($request);
+        ${{entity}} = app(Find{{model}}ByIdAction::class)->run($request->toTransporter());
 
         return $this->transform(${{entity}}, {{model}}Transformer::class);
     }
@@ -56,7 +56,7 @@ class {{class-name}} extends {{base-controller}}
      */
     public function getAll{{models}}(GetAll{{models}}Request $request): array
     {
-        ${{entities}} = app(GetAll{{models}}Action::class)->run($request);
+        ${{entities}} = app(GetAll{{models}}Action::class)->run();
 
         return $this->transform(${{entities}}, {{model}}Transformer::class);
     }
@@ -67,7 +67,7 @@ class {{class-name}} extends {{base-controller}}
      */
     public function update{{model}}(Update{{model}}Request $request): array
     {
-        ${{entity}} = app(Update{{model}}Action::class)->run($request);
+        ${{entity}} = app(Update{{model}}Action::class)->run($request->toTransporter());
 
         return $this->transform(${{entity}}, {{model}}Transformer::class);
     }
@@ -77,7 +77,7 @@ class {{class-name}} extends {{base-controller}}
      */
     public function delete{{model}}(Delete{{model}}Request $request): JsonResponse
     {
-        app(Delete{{model}}Action::class)->run($request);
+        app(Delete{{model}}Action::class)->run($request->toTransporter());
 
         return $this->noContent();
     }

@@ -6,7 +6,6 @@ namespace Apiato\Core\Generator\Commands;
 
 use Apiato\Core\Generator\GeneratorCommand;
 use Apiato\Core\Generator\Interfaces\ComponentsGenerator;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Pluralizer;
 use Illuminate\Support\Str;
@@ -114,7 +113,7 @@ class MigrationGenerator extends GeneratorCommand implements ComponentsGenerator
                 'table-name'      => $tableName,
             ],
             'file-parameters' => [
-                'date'      => Carbon::now()->format(self::FORMAT_TIME),
+                'date'      => now()->format(self::FORMAT_TIME),
                 'file-name' => $this->fileName,
             ],
         ];

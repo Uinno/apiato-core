@@ -11,6 +11,11 @@ use Illuminate\Support\Str;
 class SeederGenerator extends GeneratorCommand implements ComponentsGenerator
 {
     /**
+     * @var string
+     */
+    public const FORMAT_TIME = 'Y_m_d_His';
+
+    /**
      * User required/optional inputs expected to be passed while calling the command.
      * This is a replacement of the `getArguments` function "which reads whenever it's called".
      */
@@ -44,7 +49,7 @@ class SeederGenerator extends GeneratorCommand implements ComponentsGenerator
     /**
      * The structure of the file name.
      */
-    protected string $nameStructure = '{file-name}';
+    protected string $nameStructure = 'Order_{date}_{file-name}';
 
     /**
      * The name of the stub file.
@@ -66,6 +71,7 @@ class SeederGenerator extends GeneratorCommand implements ComponentsGenerator
                 'class-name'      => $this->fileName,
             ],
             'file-parameters' => [
+                'date'      => now()->format(self::FORMAT_TIME),
                 'file-name' => $this->fileName,
             ],
         ];

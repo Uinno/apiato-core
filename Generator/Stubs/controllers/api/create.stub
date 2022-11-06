@@ -22,7 +22,7 @@ class {{class-name}} extends {{base-controller}}
      */
     public function create{{model}}(Create{{model}}Request $request): JsonResponse
     {
-        ${{entity}} = app(Create{{model}}Action::class)->run($request);
+        ${{entity}} = app(Create{{model}}Action::class)->run($request->toTransporter());
 
         return $this->created($this->transform(${{entity}}, {{model}}Transformer::class));
     }

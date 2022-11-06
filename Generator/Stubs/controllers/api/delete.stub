@@ -19,7 +19,7 @@ class {{class-name}} extends {{base-controller}}
      */
     public function delete{{model}}(Delete{{model}}Request $request): JsonResponse
     {
-        app(Delete{{model}}Action::class)->run($request);
+        app(Delete{{model}}Action::class)->run($request->toTransporter());
 
         return $this->noContent();
     }
