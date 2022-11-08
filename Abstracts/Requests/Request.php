@@ -14,6 +14,7 @@ use Illuminate\Foundation\Http\FormRequest as LaravelRequest;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
+use UnitEnum;
 
 /**
  * Class Request.
@@ -80,30 +81,6 @@ abstract class Request extends LaravelRequest
         return empty($hasAccess) || \in_array(true, $hasAccess, true);
     }
 
-    private function hasAnyPermissionAccess(?User $user): array
-    {
-        if (!\array_key_exists('permissions', $this->access) || !$this->access['permissions']) {
-            return [];
-        }
-
-        $permissions = \is_array($this->access['permissions']) ? $this->access['permissions'] :
-            explode('|', $this->access['permissions']);
-
-        return array_map(static fn ($permission) => $user?->hasPermissionTo($permission), $permissions);
-    }
-
-    private function hasAnyRoleAccess(?User $user): array
-    {
-        if (!\array_key_exists('roles', $this->access) || !$this->access['roles']) {
-            return [];
-        }
-
-        $roles = \is_array($this->access['roles']) ? $this->access['roles'] :
-            explode('|', $this->access['roles']);
-
-        return array_map(static fn ($role) => $user?->hasRole($role), $roles);
-    }
-
     /**
      * Maps Keys in the Request.
      * For example, ['data.attributes.name' => 'firstname'] would map the field [data][attributes][name] to [firstname].
@@ -146,22 +123,6 @@ abstract class Request extends LaravelRequest
         $requestData = $this->mergeUrlParametersWithRequestData($requestData);
 
         return $this->decodeHashedIdsBeforeValidation($requestData);
-    }
-
-    /**
-     * Apply validation rules to the ID's in the URL, since Laravel
-     * doesn't validate them by default!
-     * Now you can use validation rules like this: `'id' => 'required|integer|exists:items,id'`.
-     */
-    private function mergeUrlParametersWithRequestData(array $requestData): array
-    {
-        if (property_exists($this, 'urlParameters') && !empty($this->urlParameters)) {
-            foreach ((array)$this->urlParameters as $param) {
-                $requestData[$param] = $this->route($param);
-            }
-        }
-
-        return $requestData;
     }
 
     /**
@@ -216,6 +177,55 @@ abstract class Request extends LaravelRequest
         // if in_array returned `false` means all functions returned `true` thus return `true` to allow access.
         // return the final boolean
         return !\in_array(false, $returns, true);
+    }
+
+    private function hasAnyPermissionAccess(?User $user): array
+    {
+        $permissions = $this->preparingAccessValues('permissions');
+        return array_map(static fn($permission) => $user?->hasPermissionTo($permission), $permissions);
+    }
+
+    private function hasAnyRoleAccess(?User $user): array
+    {
+        $roles = $this->preparingAccessValues('roles');
+
+        return array_map(static fn($role) => $user?->hasRole($role), $roles);
+    }
+
+    private function preparingAccessValues(string $key): array
+    {
+        if (!\array_key_exists($key, $this->access) || !$this->access[$key]) {
+            return [];
+        }
+
+        $accessValues = $this->access[$key];
+
+        // If a string and this string contains a delimiter, then convert this to an array.
+        if (is_string($accessValues)) {
+            $accessValues = explode('|', $accessValues);
+        }
+
+        // If it is not already an array, wrap it with an array.
+        $accessValues = \Arr::wrap($accessValues);
+
+        // If an element of an array is an enumeration, then there is a need to cast it to a string.
+        return array_map(static fn(string|int|UnitEnum $accessValue): string|int => $accessValue instanceof UnitEnum ? $accessValue->value : $accessValue, $accessValues);
+    }
+
+    /**
+     * Apply validation rules to the ID's in the URL, since Laravel
+     * doesn't validate them by default!
+     * Now you can use validation rules like this: `'id' => 'required|integer|exists:items,id'`.
+     */
+    private function mergeUrlParametersWithRequestData(array $requestData): array
+    {
+        if (property_exists($this, 'urlParameters') && !empty($this->urlParameters)) {
+            foreach ((array)$this->urlParameters as $param) {
+                $requestData[$param] = $this->route($param);
+            }
+        }
+
+        return $requestData;
     }
 
     /**
