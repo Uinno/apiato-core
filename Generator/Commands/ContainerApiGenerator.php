@@ -107,7 +107,7 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
         $url = Str::lower($this->checkParameterOrAsk('url', 'Enter the base URI for all API endpoints (foo/bar/{id})', Str::kebab($models)));
         $url = ltrim($url, '/');
 
-        $controllertype = Str::lower($this->checkParameterOrChoice('controllertype', 'Select the controller type (Single or Multi Action Controller)', ['SAC', 'MAC'], 0));
+        $controllerType = Str::lower($this->checkParameterOrChoice('controllertype', 'Select the controller type (Single or Multi Action Controller)', ['SAC', 'MAC'], 0));
 
         $generateEvents    = $this->checkParameterOrConfirm('events', 'Do you want to generate the corresponding CRUD Events for this Container?', false);
         $generateListeners = false;
@@ -295,7 +295,7 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
             }
 
             // Finally, generate the controller
-            if ($controllertype === 'sac') {
+            if ($controllerType === 'sac') {
                 $this->call('apiato:generate:route', [
                     '--section'    => $sectionName,
                     '--container'  => $containerName,
@@ -332,7 +332,7 @@ class ContainerApiGenerator extends GeneratorCommand implements ComponentsGenera
             }
         }
 
-        if ($controllertype === 'mac') {
+        if ($controllerType === 'mac') {
             $this->printInfoMessage('Generating Controller to wire everything together');
             $this->call('apiato:generate:controller', [
                 '--section'   => $sectionName,

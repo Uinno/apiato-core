@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-
 use App\Containers\{{section-name}}\{{container-name}}\UI\API\Controllers\{{controller-name}};
 use Illuminate\Support\Facades\Route;
 

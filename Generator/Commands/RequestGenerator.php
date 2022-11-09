@@ -86,6 +86,10 @@ class RequestGenerator extends GeneratorCommand implements ComponentsGenerator
             ]);
         }
 
+        // Get the URI and remove the first trailing slash
+        $url = Str::lower(Str::kebab(Pluralizer::plural($this->containerName)));
+        $url = ltrim($url, '/');
+
         return [
             'path-parameters' => [
                 'section-name'   => $this->sectionName,
@@ -102,7 +106,7 @@ class RequestGenerator extends GeneratorCommand implements ComponentsGenerator
                 'transporterClass'     => $transporterClass,
                 'transporterNamespace' => $transporterNamespace,
                 'table-name'           => $tableName,
-                'container-name-lower' => Str::lower($this->containerName),
+                'endpoint-url'         => $url,
             ],
             'file-parameters' => [
                 'file-name' => $this->fileName,
