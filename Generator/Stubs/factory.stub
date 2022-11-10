@@ -28,7 +28,7 @@ class {{class-name}} extends ParentFactory
 
     public function name(): self
     {
-        return $this->state(static fn (array $attributes): array => [
+        return $this->state(fn (array $attributes): array => [
             'name' => $this->faker->name(),
         ]);
     }

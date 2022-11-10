@@ -7,10 +7,12 @@ namespace App\Containers\{{section-name}}\{{container-name}}\UI\{{user-interface
 use {{transporterNamespace}};
 use App\Ship\Parents\Requests\Request as ParentRequest;
 use App\Ship\Parents\Traits\RequestWithoutRulesTrait;
+use App\Ship\Parents\Traits\RequestWithoutTransporterTrait;
 
 class {{class-name}} extends ParentRequest
 {
     use RequestWithoutRulesTrait;
+    use RequestWithoutTransporterTrait;
 
     /**
      * Define which Roles and/or Permissions has access to this request.
@@ -28,13 +30,5 @@ class {{class-name}} extends ParentRequest
         return $this->check([
             'hasAccess',
         ]);
-    }
-
-    /**
-     * The assigned Transporter for this Request.
-     */
-    public function toTransporter(array $payload = []): {{transporterClass}}
-    {
-        return {{transporterClass}}::fromRequest($this, $payload);
     }
 }
