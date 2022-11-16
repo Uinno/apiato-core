@@ -56,7 +56,7 @@
             "providers": [
                 "Apiato\\Core\\Providers\\ApiatoServiceProvider",
                 "Vinkla\\Hashids\\HashidsServiceProvider",
-                "Prettus\\Repository\\Providers\\RepositoryServiceProvider",
+                "Apiato\\Core\\Repository\\RepositoryServiceProvider",
                 "Spatie\\Fractal\\FractalServiceProvider",
                 "Apiato\\Core\\Generator\\GeneratorsServiceProvider"
             ],

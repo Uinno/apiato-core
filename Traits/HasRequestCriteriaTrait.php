@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Apiato\Core\Traits;
 
-use Apiato\Core\Abstracts\Criterias\PrettusRequestCriteria as RequestCriteria;
 use Apiato\Core\Abstracts\Repositories\Repository;
 use Apiato\Core\Exceptions\CoreInternalErrorException;
+use Apiato\Core\Repository\Interfaces\RequestCriteriaInterface;
 use Exception;
 use Hashids\HashidsException;
 use Prettus\Repository\Exceptions\RepositoryException;
@@ -21,7 +21,7 @@ trait HasRequestCriteriaTrait
     public function addRequestCriteria(?Repository $repository = null, array $fieldsToDecode = ['id']): static
     {
         $validatedRepository = $this->validateRepository($repository);
-        $validatedRepository->pushCriteria(app(RequestCriteria::class));
+        $validatedRepository->pushCriteria(app(RequestCriteriaInterface::class));
 
         /**
          * @FIXME: thinking about PrettusRequestCriteria and decodeRepositorySearch method.
@@ -39,7 +39,7 @@ trait HasRequestCriteriaTrait
     public function removeRequestCriteria($repository = null): static
     {
         $validatedRepository = $this->validateRepository($repository);
-        $validatedRepository->popCriteria(RequestCriteria::class);
+        $validatedRepository->popCriteria(app(RequestCriteriaInterface::class)::class);
 
         return $this;
     }
