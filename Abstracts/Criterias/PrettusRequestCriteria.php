@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Apiato\Core\Abstracts\Criterias;
 
+use Apiato\Core\Repository\Interfaces\RequestCriteriaInterface;
 use Apiato\Core\Traits\HashIdTrait;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\RepositoryInterface;
 use Prettus\Repository\Criteria\RequestCriteria as PrettusCriteria;
 
-class PrettusRequestCriteria extends PrettusCriteria
+class PrettusRequestCriteria extends PrettusCriteria implements RequestCriteriaInterface
 {
     use HashIdTrait;
 
