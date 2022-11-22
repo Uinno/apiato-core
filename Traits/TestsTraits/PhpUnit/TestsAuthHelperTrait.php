@@ -8,6 +8,8 @@ use Apiato\Core\Abstracts\Models\UserModel as User;
 use Faker\Generator;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use UnitEnum;
 
 trait TestsAuthHelperTrait
 {
@@ -78,6 +80,11 @@ trait TestsAuthHelperTrait
 
         return \is_null($userDetails) ? $this->findOrCreateTestingUser($userDetails, $access)
             : $this->createTestingUser($userDetails, $access);
+    }
+
+    public function getEntityResourceKey(string $entityClassName): string
+    {
+        return Str::snake(Str::pluralStudly(class_basename($entityClassName)));
     }
 
     private function findOrCreateTestingUser(array|User|null $userDetails = null, ?array $access = null): User
@@ -163,8 +170,9 @@ trait TestsAuthHelperTrait
      */
     private function setupTestingUserPermissions($user, ?array $access)
     {
-        if (isset($access['permissions']) && !empty($access['permissions'])) {
-            $user->givePermissionTo($access['permissions']);
+        $permissions = self::preparingAccessValues($access, 'permissions');
+        if (!empty($permissions)) {
+            $user->givePermissionTo($permissions);
             $user = $user->fresh();
         }
 
@@ -178,8 +186,9 @@ trait TestsAuthHelperTrait
      */
     private function setupTestingUserRoles($user, ?array $access)
     {
-        if (isset($access['roles']) && !empty($access['roles']) && !$user->hasRole($access['roles'])) {
-            $user->assignRole($access['roles']);
+        $roles = self::preparingAccessValues($access, 'roles');
+        if (!empty($roles) && !$user->hasRole($roles)) {
+            $user->assignRole($roles);
             $user = $user->fresh();
         }
 
@@ -192,5 +201,25 @@ trait TestsAuthHelperTrait
             'permissions' => null,
             'roles'       => null,
         ];
+    }
+
+    private static function preparingAccessValues(array $access, string $key): array
+    {
+        if (!\array_key_exists($key, $access) || !$access[$key]) {
+            return [];
+        }
+
+        $accessValues = $access[$key];
+
+        // If a string and this string contains a delimiter, then convert this to an array.
+        if (is_string($accessValues)) {
+            $accessValues = explode('|', $accessValues);
+        }
+
+        // If it is not already an array, wrap it with an array.
+        $accessValues = \Arr::wrap($accessValues);
+
+        // If an element of an array is an enumeration, then there is a need to cast it to a string.
+        return array_map(static fn(string|int|UnitEnum $accessValue): string|int => $accessValue instanceof UnitEnum ? $accessValue->value : $accessValue, $accessValues);
     }
 }
