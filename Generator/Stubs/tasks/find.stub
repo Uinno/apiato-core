@@ -23,7 +23,7 @@ class {{class-name}} extends ParentTask
     public function run(int $id): {{model}}
     {
         try {
-            return $this->repository->find($id);
+            return $this->pushOneEntityRequestCriteria()->repository->find($id);
         } catch (Exception) {
             throw new NotFoundException();
         }

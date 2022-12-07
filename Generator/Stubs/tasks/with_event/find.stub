@@ -24,7 +24,7 @@ class {{class-name}} extends ParentTask
     public function run(int $id): {{model}}
     {
         try {
-            ${{_model}} = $this->repository->find($id);
+            ${{_model}} = $this->repository->pushOneEntityRequestCriteria()->find($id);
             {{event}}::dispatch(${{_model}});
 
             return ${{_model}};
