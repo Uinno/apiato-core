@@ -6,6 +6,7 @@ namespace Apiato\Core\Traits;
 
 use Apiato\Core\Abstracts\Repositories\Repository;
 use Apiato\Core\Exceptions\CoreInternalErrorException;
+use Apiato\Core\Repository\Interfaces\OneEntityRequestCriteriaInterface;
 use Apiato\Core\Repository\Interfaces\RequestCriteriaInterface;
 use Exception;
 use Hashids\HashidsException;
@@ -40,6 +41,22 @@ trait HasRequestCriteriaTrait
     {
         $validatedRepository = $this->validateRepository($repository);
         $validatedRepository->popCriteria(app(RequestCriteriaInterface::class)::class);
+
+        return $this;
+    }
+
+    public function pushOneEntityRequestCriteria($repository = null): static
+    {
+        $validatedRepository = $this->validateRepository($repository);
+        $validatedRepository->pushCriteria(app(OneEntityRequestCriteriaInterface::class));
+
+        return $this;
+    }
+
+    public function popOneEntityRequestCriteria($repository = null): static
+    {
+        $validatedRepository = $this->validateRepository($repository);
+        $validatedRepository->popCriteria(app(OneEntityRequestCriteriaInterface::class));
 
         return $this;
     }
@@ -92,11 +109,11 @@ trait HasRequestCriteriaTrait
 
     private function decodeSearchQueryString(array $fieldsToDecode): void
     {
-        $query       = request()?->query();
+        $query = request()?->query();
         $searchQuery = $query['search'] ?? '';
 
         $decodedValue = $this->decodeValue($searchQuery);
-        $decodedData  = $this->decodeData($fieldsToDecode, $searchQuery);
+        $decodedData = $this->decodeData($fieldsToDecode, $searchQuery);
 
         $decodedQuery = $this->arrayToSearchQuery($decodedData);
 
@@ -172,7 +189,7 @@ trait HasRequestCriteriaTrait
 
             foreach ($fields as $row) {
                 try {
-                    [$field, $value]    = explode(':', $row);
+                    [$field, $value] = explode(':', $row);
                     $searchData[$field] = $value;
                 } catch (Exception) {
                     //Surround offset error

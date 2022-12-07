@@ -3,7 +3,9 @@ declare (strict_types=1);
 
 namespace Apiato\Core\Repository;
 
+use Apiato\Core\Abstracts\Criterias\OneEntityPrettusRequestCriteria;
 use Apiato\Core\Abstracts\Criterias\PrettusRequestCriteria;
+use Apiato\Core\Repository\Interfaces\OneEntityRequestCriteriaInterface;
 use Apiato\Core\Repository\Interfaces\RequestCriteriaInterface;
 use Prettus\Repository\Providers\RepositoryServiceProvider as ParentRepositoryServiceProvider;
 
@@ -14,5 +16,6 @@ class RepositoryServiceProvider extends ParentRepositoryServiceProvider
     {
         parent::register();
         $this->app->bind(RequestCriteriaInterface::class, PrettusRequestCriteria::class);
+        $this->app->bind(OneEntityRequestCriteriaInterface::class, OneEntityPrettusRequestCriteria::class);
     }
 }
