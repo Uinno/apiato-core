@@ -109,11 +109,11 @@ trait HasRequestCriteriaTrait
 
     private function decodeSearchQueryString(array $fieldsToDecode): void
     {
-        $query = request()?->query();
+        $query       = request()?->query();
         $searchQuery = $query['search'] ?? '';
 
         $decodedValue = $this->decodeValue($searchQuery);
-        $decodedData = $this->decodeData($fieldsToDecode, $searchQuery);
+        $decodedData  = $this->decodeData($fieldsToDecode, $searchQuery);
 
         $decodedQuery = $this->arrayToSearchQuery($decodedData);
 
@@ -207,7 +207,7 @@ trait HasRequestCriteriaTrait
         $fields = array_keys($decodedSearchArray);
         $length = \count($fields);
         for ($i = 0; $i < $length; $i++) {
-            $field = $fields[$i];
+            $field              = $fields[$i];
             $decodedSearchQuery .= sprintf('%s:%s', $field, $decodedSearchArray[$field]);
 
             if ($length !== 1 && $i < $length - 1) {
