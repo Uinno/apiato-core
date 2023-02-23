@@ -109,6 +109,16 @@ trait HashIdTrait
             }
         }
 
+        if (method_exists($this, 'getDecodeKeys')) {
+            $decodeArr = $this->getDecodeKeys();
+            if (is_array($decodeArr) && !empty($decodeArr)) {
+                // Iterate over each key (ID that needs to be decoded) and call keys locator to decode them
+                foreach ($this->getDecodeKeys() as $key) {
+                    $requestData = $this->locateAndDecodeIds($requestData, $key);
+                }
+            }
+        }
+
         return $requestData;
     }
 
@@ -129,7 +139,6 @@ trait HashIdTrait
      * Recursive function to process (decode) the request data with a given key.
      *
      * @return array|string|int|null
-     *
      * @throws IncorrectIdException
      */
     private function processField(array|string|int|null $data, ?array $keysTodo = null, ?string $currentFieldName = null)
