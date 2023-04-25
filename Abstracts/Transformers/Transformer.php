@@ -28,7 +28,7 @@ abstract class Transformer extends FractalTransformer
             return $this->primitive(null);
         }
 
-        return $this->item($data, $transformer, $resourceKey = null);
+        return $this->item($data, $transformer, $resourceKey);
     }
 
     /**
