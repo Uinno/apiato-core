@@ -179,14 +179,19 @@ abstract class Request extends LaravelRequest
         return !\in_array(false, $returns, true);
     }
 
-    private function hasAnyPermissionAccess(?User $user): array
+    private function hasAnyPermissionAccess(?User $user = null): array
     {
+        // If not in parameters, take from the request object {$this}
+        $user = $user ?: $this->user();
+
         $permissions = $this->preparingAccessValues('permissions');
         return array_map(static fn($permission) => $user?->hasPermissionTo($permission), $permissions);
     }
 
-    private function hasAnyRoleAccess(?User $user): array
+    private function hasAnyRoleAccess(?User $user = null): array
     {
+        // If not in parameters, take from the request object {$this}
+        $user = $user ?: $this->user();
         $roles = $this->preparingAccessValues('roles');
 
         return array_map(static fn($role) => $user?->hasRole($role), $roles);
